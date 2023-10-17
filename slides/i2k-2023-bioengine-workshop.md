@@ -198,6 +198,13 @@ BioImage.IO is powered by the 🧠 and ❤️ of:
 Follow us on twitter @bioimageio
 
 -----
+### Acknowledgements (3)
+
+BioImage.IO and BioEngine is part of [the AI4Life consortium](https://ai4life.eurobioimaging.eu/)
+
+AI4Life has received funding from the European Union’s Horizon Europe research and innovation programme under grant agreement number 101057970. 
+
+-----
 
 # 🙏Thank You!
 
