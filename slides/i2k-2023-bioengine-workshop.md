@@ -1,4 +1,4 @@
-From Images to Knowledge Conference - 2022
+From Images to Knowledge Conference - 2023
 
 ## Web- and AI-powered Bioimage Analysis with the BioEngine
 
