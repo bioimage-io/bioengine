@@ -1,6 +1,6 @@
 From Images to Knowledge Conference - 2023
 
-## Web- and AI-powered Bioimage Analysis with the BioEngine
+## Scaling AI-powered Bioimage Analysis with the BioEngine
 
 Wei OUYANG, Jeremy Metz
 
@@ -26,13 +26,16 @@ SciLifeLab | KTH Royal Institute of Technology, Stockholm
  * Massive dataset
  * Scalabile file format (Zarr, N5, NGFF)
 
-🚀A Future of Web- and AI-powered Bioimage Analysis
-
 -----
 ## Existing solutions
 * Desktop software: DeepImageJ, ilastik, napari
 * Notebooks: Colab/ZeroCost4Mic, Jupyter Notebooks
 * Web Apps: NucleAIzer, CellPose, DeepCell, ImJoy
+
+-----
+🚀 Web- and AI-powered Bioimage Analysis
+<!-- .slide: data-background="white" -->
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vQZlCGgU8folNuCejDJIJoC5ms-HYehlwrfSavY8Sbm-943iCwQrqQIpdabcaOIWJ5WodyDTAiWVf-q/pub?w=937&amp;h=571">
 
 -----
 <!-- .slide: data-background="white" -->
@@ -49,6 +52,20 @@ Data science tools in the browser
 
 <img style="max-height: calc(100vh - 100px);" alt="BioImage Model Zoo screenshot" src="https://raw.githubusercontent.com/oeway/slides/master/2022/bioimage-model-zoo-screenshot.png">
 -----
+## The Model Resource Description File (RDF)
+
+ * A yaml file describe models
+ * With metadata for sharing models
+ * And fields for run models
+ 
+See here: https://bioimage.io/docs/#/bioimageio_model_spec
+-----
+## Model Test Run feature at the BioImage.IO
+ * Run models in the browser with your own images
+ * Without download or installation
+ * Try it at https://bioimage.io/
+
+-----
 <!-- .slide: data-background="white" -->
 ## Meet the BioEngine
 <img style="max-height: calc(100vh - 100px);" src="https://docs.google.com/drawings/d/e/2PACX-1vQCVUJDbgT_cPVsm--P75h13xbl7kW1Kt4RESW2opDb8MYOQrYQxToaFMFYdUwEBDBC4EWKwto0EExB/pub?w=1550&amp;h=983">
@@ -57,7 +74,6 @@ Data science tools in the browser
 <!-- .slide: data-background="white" -->
 ## Deploying the BioEngine
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vSoG7ywI0qbNAbG-bV7J9LomhlK8r1xyhxS70LcA4_XNt_oUiWoYLcMFJlUFB2oA80hgL5TQzAWUhNW/pub?w=1510&amp;h=1050">
-
 
 -----
 ## BioEngine feature hightlights
@@ -87,13 +103,6 @@ Try the BioEngine
 <div id="tutorial-3-window" style="width: 100%; height: 100vh;"></div>
 
 -----
-<!-- .slide: data-state="tutorial-2" -->
-## Preview: Training a CellPose segmentation model
-<button class="button" onclick='loadNotebook("2-bioengine-tutorial-i2k2022.ipynb", "tutorial-2-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/2-bioengine-model-training.ipynb")'>Click to start the notebook</button>
-<button id="tutorial-2-reset" class="button" style="background-color:red;display:none;" onclick='loadNotebook("2-bioengine-tutorial-i2k2022.ipynb", "tutorial-2-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/2-bioengine-model-training.ipynb", true)'>Reset</button>
-<div id="tutorial-2-window" style="width: 100%; height: 100vh;"></div>
-
------
 ## Working with data and models of your choice
 
 Use the tools you have learned about so far to 
@@ -106,13 +115,6 @@ There will be a brief show-and-tell at the end of the
 workshop where you can showcase your results! 
 
 -----
-<!-- .slide: data-state="tutorial-4" -->
-## Preview: Model training with the BioEngine
-<button class="button" onclick='loadNotebook("4-bioengine-tutorial-i2k2022.ipynb", "tutorial-4-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/4-kaibu-interactive-training.ipynb")'>Click to start the notebook</button>
-<button id="tutorial-4-reset" class="button" style="background-color:red;display:none;" onclick='loadNotebook("4-bioengine-tutorial-i2k2022.ipynb", "tutorial-3-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/4-kaibu-interactive-training.ipynb", true)'>Reset</button>
-<div id="tutorial-4-window" style="width: 100%; height: 100vh;"></div>
-
------
 ## BioEngine vs Jupyter Notebooks / Colab
  Scalability!
  * Cloud & On-premise deployment
@@ -120,6 +122,28 @@ workshop where you can showcase your results!
  * Multi-model serving
  * Improved GPU utilization
  * Instant usage without setup or installation
+
+-----
+## Stay tuned! New features under development
+ * Deploy your own BioEngine to K8S cluster, workstation
+ * BioEngine installer for your laptop
+ * Training service
+
+-----
+<!-- .slide: data-state="tutorial-2" -->
+## Feature Preview: Training a CellPose segmentation model
+<button class="button" onclick='loadNotebook("2-bioengine-tutorial-i2k2022.ipynb", "tutorial-2-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/2-bioengine-model-training.ipynb")'>Click to start the notebook</button>
+<button id="tutorial-2-reset" class="button" style="background-color:red;display:none;" onclick='loadNotebook("2-bioengine-tutorial-i2k2022.ipynb", "tutorial-2-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/2-bioengine-model-training.ipynb", true)'>Reset</button>
+<div id="tutorial-2-window" style="width: 100%; height: 100vh;"></div>
+
+
+-----
+<!-- .slide: data-state="tutorial-4" -->
+## Feature Preview: Model training with the BioEngine
+<button class="button" onclick='loadNotebook("4-bioengine-tutorial-i2k2022.ipynb", "tutorial-4-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/4-kaibu-interactive-training.ipynb")'>Click to start the notebook</button>
+<button id="tutorial-4-reset" class="button" style="background-color:red;display:none;" onclick='loadNotebook("4-bioengine-tutorial-i2k2022.ipynb", "tutorial-3-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/4-kaibu-interactive-training.ipynb", true)'>Reset</button>
+<div id="tutorial-4-window" style="width: 100%; height: 100vh;"></div>
+
 
 -----
 ## Accessing the BioEngine from Icy
@@ -142,6 +166,8 @@ Powered by OpenAI GPT-3 and Codex
 ## Conclusions
  * BioEninge for scalable AI model serving
  * How to use the BioEngine
+
+
 
 -----
 ### Acknowledgements (1)
