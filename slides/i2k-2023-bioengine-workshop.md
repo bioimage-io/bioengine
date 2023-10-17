@@ -94,6 +94,18 @@ Try the BioEngine
 <div id="tutorial-2-window" style="width: 100%; height: 100vh;"></div>
 
 -----
+## Working with data and models of your choice
+
+Use the tools you have learned about so far to 
+process images of your choice. 
+
+Find models at https://bioimage.io and use the model name when executing the 
+inference on bioengine. 
+
+There will be a brief show-and-tell at the end of the 
+workshop where you can showcase your results! 
+
+-----
 <!-- .slide: data-state="tutorial-4" -->
 ## Preview: Model training with the BioEngine
 <button class="button" onclick='loadNotebook("4-bioengine-tutorial-i2k2022.ipynb", "tutorial-4-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/4-kaibu-interactive-training.ipynb")'>Click to start the notebook</button>
