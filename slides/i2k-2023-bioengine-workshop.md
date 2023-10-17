@@ -80,22 +80,22 @@ Try the BioEngine
 <div id="tutorial-1-window" style="width: 100%; height: 100vh;"></div>
 
 -----
+<!-- .slide: data-state="tutorial-3" -->
+## Tutorial 2: Create UI with ImJoy and Kaibu
+<button class="button" onclick='loadNotebook("3-bioengine-tutorial-i2k2022.ipynb", "tutorial-3-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/3-kaibu-geojson.ipynb")'>Click to start the notebook</button>
+<button id="tutorial-3-reset" class="button" style="background-color:red;display:none;" onclick='loadNotebook("3-bioengine-tutorial-i2k2022.ipynb", "tutorial-3-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/3-kaibu-geojson.ipynb", true)'>Reset</button>
+<div id="tutorial-3-window" style="width: 100%; height: 100vh;"></div>
+
+-----
 <!-- .slide: data-state="tutorial-2" -->
-## Tutorial 2: Training a CellPose segmentation model
+## Preview: Training a CellPose segmentation model
 <button class="button" onclick='loadNotebook("2-bioengine-tutorial-i2k2022.ipynb", "tutorial-2-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/2-bioengine-model-training.ipynb")'>Click to start the notebook</button>
 <button id="tutorial-2-reset" class="button" style="background-color:red;display:none;" onclick='loadNotebook("2-bioengine-tutorial-i2k2022.ipynb", "tutorial-2-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/2-bioengine-model-training.ipynb", true)'>Reset</button>
 <div id="tutorial-2-window" style="width: 100%; height: 100vh;"></div>
 
 -----
-<!-- .slide: data-state="tutorial-3" -->
-## Tutorial 3: Create UI with ImJoy and Kaibu
-<button class="button" onclick='loadNotebook("3-bioengine-tutorial-i2k2022.ipynb", "tutorial-3-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/3-kaibu-geojson.ipynb")'>Click to start the notebook</button>
-<button id="tutorial-2-reset" class="button" style="background-color:red;display:none;" onclick='loadNotebook("3-bioengine-tutorial-i2k2022.ipynb", "tutorial-3-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/3-kaibu-geojson.ipynb", true)'>Reset</button>
-<div id="tutorial-3-window" style="width: 100%; height: 100vh;"></div>
-
------
 <!-- .slide: data-state="tutorial-4" -->
-## Tutorial 4: Model training with the BioEngine
+## Preview: Model training with the BioEngine
 <button class="button" onclick='loadNotebook("4-bioengine-tutorial-i2k2022.ipynb", "tutorial-4-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/4-kaibu-interactive-training.ipynb")'>Click to start the notebook</button>
 <button id="tutorial-4-reset" class="button" style="background-color:red;display:none;" onclick='loadNotebook("4-bioengine-tutorial-i2k2022.ipynb", "tutorial-3-window", "https://raw.githubusercontent.com/bioimage-io/BioEngine/main/notebooks/4-kaibu-interactive-training.ipynb", true)'>Reset</button>
 <div id="tutorial-4-window" style="width: 100%; height: 100vh;"></div>
