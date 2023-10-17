@@ -1,6 +1,6 @@
 # BioEngine
 
-[Tutorial for I2K 2022](https://slides.imjoy.io/?slides=https://raw.githubusercontent.com/oeway/slides/master/2022/i2k-2022-bioengine-workshop.md)
+[Tutorial for I2K 2023](https://slides.imjoy.io/?slides=https://raw.githubusercontent.com/bioimage-io/BioEngine/main/slides/i2k-2023-bioengine-workshop.md)
 
 ## Getting started
 
