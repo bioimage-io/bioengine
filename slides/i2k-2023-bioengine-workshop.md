@@ -129,6 +129,8 @@ workshop where you can showcase your results!
  * BioEngine installer for your laptop
  * Training service
 
+Follow our repo on Github: https://github.com/bioimage-io/bioengine
+
 -----
 <!-- .slide: data-state="tutorial-2" -->
 ## Feature Preview: Training a CellPose segmentation model
