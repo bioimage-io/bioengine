@@ -64,7 +64,6 @@ if __name__ == "__main__":
 #### Synchronous Client
 
 ```python
-import asyncio
 import numpy as np
 from imjoy_rpc.hypha.sync import connect_to_server
 
@@ -90,7 +89,7 @@ def main():
     return mask
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
 ```
 
 <!-- tabs:end -->
