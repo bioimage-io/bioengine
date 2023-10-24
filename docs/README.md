@@ -1,6 +1,5 @@
 # BioEngine
 
-[Tutorial for I2K 2023](https://slides.imjoy.io/?slides=https://raw.githubusercontent.com/bioimage-io/BioEngine/main/slides/i2k-2023-bioengine-workshop.md)
 
 ## Using the BioEngine
 
@@ -8,3 +7,5 @@ You can access the BioEngine directly from the [BioImage.IO website](https://bio
 
 If you are a user with programming expertise or a developer, please take a look at our [API document](./api.md).
 
+## BioEngine Tutorial
+ * [Tutorial for I2K 2023](https://slides.imjoy.io/?slides=https://raw.githubusercontent.com/bioimage-io/BioEngine/main/slides/i2k-2023-bioengine-workshop.md)
