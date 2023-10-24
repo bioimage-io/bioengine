@@ -5,7 +5,7 @@
 
 You can access the BioEngine directly from the [BioImage.IO website](https://bioimage.io), for most of the models, you will find a test run button to execute it with your own images. 
 
-If you are a user with programming expertise or a developer, please take a look at our [API document](./api.md).
+If you are a user with programming expertise or a developer, please take a look at our [API document](api.md).
 
 ## API Documentation
 
