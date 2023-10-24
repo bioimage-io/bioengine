@@ -23,6 +23,7 @@ Use the following code to connect to the server and access the service. The code
 
 Similarily, you can also use the `connect_to_server_sync` function to connect to the server synchronously (available since `imjoy-rpc>=0.5.25.post0`).
 
+
 <!-- tabs:start -->
 #### ** Asynchronous Client **
 
@@ -87,6 +88,7 @@ def main():
 if __name__ == "__main__":
     asyncio.run(main())
 ```
+
 <!-- tabs:end -->
 
 **NOTE: In Python, the recommended way to interact with the server to use asynchronous functions with `asyncio`. However, if you need to use synchronous functions, you can use `from imjoy_rpc.hypha.sync import login, connect_to_server` (available since `imjoy-rpc>=0.5.25.post0`) instead. The have the exact same arguments as the asynchronous versions. For more information, see [Synchronous Wrapper](/imjoy-rpc?id=synchronous-wrapper)**
