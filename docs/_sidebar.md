@@ -1,3 +1,3 @@
 <!-- docs/_sidebar.md -->
 * [Overview](/)
-* [BioEngine API](./api.md)
+* [BioEngine API](api.md)
