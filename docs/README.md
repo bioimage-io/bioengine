@@ -2,24 +2,9 @@
 
 [Tutorial for I2K 2023](https://slides.imjoy.io/?slides=https://raw.githubusercontent.com/bioimage-io/BioEngine/main/slides/i2k-2023-bioengine-workshop.md)
 
-## Getting started
+## Using the BioEngine
 
-```python
-async def run_model(image):
-    server = await connect_to_server(
-        {"server_url": "https://hypha.bioimage.io/", "method_timeout": 3000}
-    )
-    triton = await server.get_service("triton-client")
+You can access the BioEngine directly from the [BioImage.IO website](https://bioimage.io), for most of the models, you will find a test run button to execute it with your own images. 
 
-    # Run inference
-    ret = await triton.execute(
-        inputs=[{"inputs": [image], "model_id": "conscientious-seashell"}],
-        model_name="bioengine-model-runner",
-        serialization="imjoy",
-    )
-    result = ret["result"]
-    mask = result['outputs'][0]
-    return mask
-```
-
+If you are a user with programming expertise or a developer, please take a look at our [API document](./api.md).
 
