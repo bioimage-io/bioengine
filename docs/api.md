@@ -29,7 +29,7 @@ Similarily, you can also use the `connect_to_server_sync` function to connect to
 
 
 <!-- tabs:start -->
-#### Asynchronous Client
+#### **Asynchronous Client**
 
 ```python
 import asyncio
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-#### Synchronous Client
+#### **Synchronous Client**
 
 ```python
 import numpy as np
@@ -97,7 +97,7 @@ if __name__ == "__main__":
 > [!NOTE]
 > In Python, the recommended way to interact with the server to use asynchronous functions with `asyncio`. However, if you need to use synchronous functions,
 > you can use `from imjoy_rpc.hypha.sync import login, connect_to_server` (available since `imjoy-rpc>=0.5.25.post0`) instead.
-> The have the exact same arguments as the asynchronous versions. For more information, see [Synchronous Wrapper](/imjoy-rpc?id=synchronous-wrapper)
+> They have the exact same arguments as the asynchronous versions. For more information, see [Synchronous Wrapper](/imjoy-rpc?id=synchronous-wrapper)
 
 > <strong>💡 Tip </strong><br>
 > For QT-based applications, e.g. napari, imswitch, use the synchronous api.
