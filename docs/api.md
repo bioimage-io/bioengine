@@ -2,18 +2,22 @@
 
 Under the hood, BioEngine uses [Hypha](https://ha.amun.ai/) to orchestrate the services provided in the containers. We uses the `imjoy-rpc` client to communicate to the Hypha server for model execution.
 
-We provide a public free server for the BioEngine available at https://ai.imjoy.io.
+We provide a free public server for the BioEngine available at https://ai.imjoy.io.
 
-**NOTE: This server is meant for testing and evaluation purposes, please use it only to process small amount of data, to avoid overloading our server!**
+>[!IMPORTANT]
+> This server is meant for testing and evaluation purposes.
+> Please only use it to process small amounts of data to avoid overloading our server!
 
-The following documentation uses `https://ai.imjoy.io` as the server_url, it can be changed to switch to different server.
+The following documentation uses `https://ai.imjoy.io` as the server_url - it can be changed to use to different server if desired.
 
-**If you are interested in setting up your own BioEngine server, please check our preliminary repo for run BioEngine locally (tested on a Macbook pro): https://github.com/oeway/bioengine.WARNINIG: the on-premise deployment is under development, it's not completely ready yet.**
+If you are interested in setting up your own BioEngine server, please check our _preliminary repo_ for run BioEngine locally (tested on a Macbook pro): https://github.com/oeway/bioengine. 
+>[!WARNING]
+> The on-premise deployment is under development, it's not completely ready yet.
 
 
-## Use the BioEngine in Python
+## Using BioEngine in Python
 
-First, you need to install the `imjoy-rpc` library:
+First install the `imjoy-rpc` library:
 
 ```bash
 pip install imjoy-rpc
@@ -25,7 +29,7 @@ Similarily, you can also use the `connect_to_server_sync` function to connect to
 
 
 <!-- tabs:start -->
-#### ** Asynchronous Client **
+#### **Asynchronous Client**
 
 ```python
 import asyncio
@@ -57,10 +61,9 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-#### ** Synchronous Client **
+#### **Synchronous Client**
 
 ```python
-import asyncio
 import numpy as np
 from imjoy_rpc.hypha.sync import connect_to_server
 
@@ -86,15 +89,18 @@ def main():
     return mask
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
 ```
 
 <!-- tabs:end -->
 
-**NOTE: In Python, the recommended way to interact with the server to use asynchronous functions with `asyncio`. However, if you need to use synchronous functions, you can use `from imjoy_rpc.hypha.sync import login, connect_to_server` (available since `imjoy-rpc>=0.5.25.post0`) instead. The have the exact same arguments as the asynchronous versions. For more information, see [Synchronous Wrapper](/imjoy-rpc?id=synchronous-wrapper)**
+> [!NOTE]
+> In Python, the recommended way to interact with the server to use asynchronous functions with `asyncio`. However, if you need to use synchronous functions,
+> you can use `from imjoy_rpc.hypha.sync import login, connect_to_server` (available since `imjoy-rpc>=0.5.25.post0`) instead.
+> They have the exact same arguments as the asynchronous versions. For more information, see [Synchronous Wrapper](/imjoy-rpc?id=synchronous-wrapper)
 
-
-**Tip: For QT-based applications, e.g. napari, imswitch, should use the synchronous api.**
+> <strong>💡 Tip </strong><br>
+> For QT-based applications, e.g. napari, imswitch, use the synchronous api.
 
 ## Using the BioEingine in JavaScript
 
