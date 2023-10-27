@@ -25,8 +25,7 @@ pip install imjoy-rpc
 
 Use the following code to connect to the server and access the service. The code first connects to the server and then gets the service by its ID. The service can then be used like a normal Python object.
 
-Similarily, you can also use the `connect_to_server_sync` function to connect to the server synchronously (available since `imjoy-rpc>=0.5.25.post0`).
-
+For different Python runtimes (e.g. native Python vs Pyodide), we provide two versions, asynchronous and synchronous client examples:
 
 <!-- tabs:start -->
 #### **Asynchronous Client**
@@ -97,7 +96,7 @@ if __name__ == "__main__":
 > [!NOTE]
 > In Python, the recommended way to interact with the server to use asynchronous functions with `asyncio`. However, if you need to use synchronous functions,
 > you can use `from imjoy_rpc.hypha.sync import login, connect_to_server` (available since `imjoy-rpc>=0.5.25.post0`) instead.
-> They have the exact same arguments as the asynchronous versions. For more information, see [Synchronous Wrapper](/imjoy-rpc?id=synchronous-wrapper)
+> They have the exact same arguments as the asynchronous versions. For more information, see [Synchronous Wrapper](https://github.com/imjoy-team/imjoy-rpc/blob/master/imjoy-rpc-v2.md#synchronous-wrapper)
 
 > <strong>💡 Tip </strong><br>
 > For QT-based applications, e.g. napari, imswitch, use the synchronous api.
