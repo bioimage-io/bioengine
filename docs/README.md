@@ -1,8 +1,6 @@
 # BioEngine: Your AI Engine for Advanced BioImage Analysis in Containers
 
 <img src='bioengine-logo-black.svg' width='600'>
-<img src='bioengine-logo-white.svg' width='600'>
-<img src='bioengine-logo-gray.svg' width='600'>
 
 BioEngine revolutionizes bioimage analysis by harnessing the power of cutting-edge AI within a flexible, containerized environment. This Python package, built on the robust foundation of [hypha](https://github.com/amun-ai/hypha), is meticulously designed to facilitate the deployment and execution of sophisticated bioimage analysis models and workflows. It offers a seamless, user-friendly interface through HTTP API and RPC, simplifying the integration of AI technologies into bioimage analysis without the need for intricate setup or deep technical expertise.
 
@@ -18,17 +16,23 @@ BioEngine stands as a beacon for developers and researchers alike, providing an 
 pip install bioengine
 ```
 
-## Getting started
+## Using the BioEngine
+
+You can access the BioEngine directly from the [BioImage.IO website](https://bioimage.io), for most of the models, you will find a test run button to execute it with your own images.
+
+
 
 To use the BioEngine, you can try it with:
  - [bioengine-web-client](https://bioimage-io.github.io/bioengine-web-client/)
- - [BioImage Model Zoo](https://bioimage.io), click any model and scroll down to the section about "Test this model"
+ - [BioImage Model Zoo](https://bioimage.io), click any model and scroll down to the section about "Test this model".
+ 
 
 ## Development
 
-BioEngine is an engine running behind the scenes, developers can interact with it python, javascript code or any other language that supports HTTP.
+BioEngine is an engine running behind the scenes, developers can interact with it python, javascript code or any other language that supports HTTP. Please take a look at our [API document](api.md).
 
-For example the following 
+
+Here is a simple example of how to use BioEngine in Python:
 
 ```python
 import imageio
@@ -60,3 +64,7 @@ asyncio.run(run_model(image))
 
 To get started with BioEngine, please see our [tutorial for I2K 2023](https://slides.imjoy.io/?slides=https://raw.githubusercontent.com/bioimage-io/BioEngine/main/slides/i2k-2023-bioengine-workshop.md).
 
+Please read the documentation at: https://bioimage-io.github.io/bioengine/
+
+## BioEngine Tutorial
+ * [Tutorial for I2K 2023](https://slides.imjoy.io/?slides=https://raw.githubusercontent.com/bioimage-io/BioEngine/main/slides/i2k-2023-bioengine-workshop.md)
