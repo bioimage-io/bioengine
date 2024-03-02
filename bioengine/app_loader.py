@@ -37,9 +37,11 @@ def load_apps():
     current_dir = Path(__file__).parent
     apps_dir = current_dir.parent / "apps"
     # list folders under apps_dir
+    apps = []
     for app_dir in apps_dir.iterdir():
         if app_dir.is_dir():
             manifest_file = app_dir / "manifest.yaml"
             if manifest_file.exists():
                 manifest = safe_load(manifest_file.read_text())
-                yield AppInfo.parse_obj(manifest)
+                apps.append(AppInfo.parse_obj(manifest))
+    return apps
