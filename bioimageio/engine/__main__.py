@@ -14,12 +14,12 @@ def start_server(args):
         f"--host={args.host}",
         f"--port={args.port}",
         f"--public-base-url={args.public_base_url}",
-        "--startup-functions=bioengine:register_bioengine_apps"
+        "--startup-functions=bioimageio.engine:register_bioengine_apps"
     ]
     subprocess.run(command)
 
 def connect_server(args):
-    from bioengine import connect_server
+    from engine import connect_server
     server_url = args.server_url
     loop = asyncio.get_event_loop()
     loop.create_task(connect_server(server_url))

@@ -13,7 +13,7 @@ BioEngine stands as a beacon for developers and researchers alike, providing an 
 ## Installation
 
 ```bash
-pip install bioengine
+pip install bioimageio.engine
 ```
 
 ## Using the BioEngine

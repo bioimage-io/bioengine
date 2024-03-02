@@ -26,7 +26,7 @@ class AppInfo(BaseModel):
             assert self.entrypoint
                         
             file_path = Path(__file__).parent.parent / "apps" / self.id / self.entrypoint
-            module_name = 'bioengine.apps.' + self.id.replace('-', '_')
+            module_name = 'bioimageio.engine.apps.' + self.id.replace('-', '_')
             spec = importlib.util.spec_from_file_location(module_name, file_path)
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)

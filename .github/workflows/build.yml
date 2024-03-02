@@ -28,4 +28,4 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
       - name: Test server
-        run: python -m bioengine start-server --host=0.0.0.0 --port=9000 & wget http://127.0.0.1:9000/public/services/bioengine
+        run: python -m bioimageio.engine start-server --host=0.0.0.0 --port=9000 & wget http://127.0.0.1:9000/public/services/bioengine

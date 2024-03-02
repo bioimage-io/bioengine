@@ -2,10 +2,10 @@
 requires = ["setuptools", "wheel"]
 
 [project]
-name = "bioengine"
+name = "bioimageio.engine"
 version = "0.1.0"
 readme = "README.md"
-description = "Hypha Services for the BioEngine"
+description = "BioEngine: Your AI Engine for Advanced BioImage Analysis in Containers"
 dependencies = [
   "imjoy-rpc",
   "PyYAML",
@@ -17,5 +17,5 @@ dependencies = [
 include-package-data = true
 
 [tool.setuptools.packages.find]
-include = ["bioengine*"]
+include = ["bioimageio*"]
 exclude = ["tests*", "scripts*"]

@@ -1,5 +1,5 @@
 import asyncio
-from bioengine.app_loader import load_apps
+from bioimageio.engine.app_loader import load_apps
 import logging
 
 logger = logging.getLogger(__name__)
