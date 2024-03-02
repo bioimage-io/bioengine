@@ -1,6 +1,6 @@
-# BioEngine: Your AI Engine for Advanced BioImage Analysis in Containers
+<img src='img/bioengine-logo-black.svg' width='600'>
 
-<img src='bioengine-logo-black.svg' width='600'>
+# BioEngine: Your AI Engine for Advanced BioImage Analysis in Containers
 
 BioEngine revolutionizes bioimage analysis by harnessing the power of cutting-edge AI within a flexible, containerized environment. This Python package, built on the robust foundation of [hypha](https://github.com/amun-ai/hypha), is meticulously designed to facilitate the deployment and execution of sophisticated bioimage analysis models and workflows. It offers a seamless, user-friendly interface through HTTP API and RPC, simplifying the integration of AI technologies into bioimage analysis without the need for intricate setup or deep technical expertise.
 
@@ -68,3 +68,4 @@ Please read the documentation at: https://bioimage-io.github.io/bioengine/
 
 ## BioEngine Tutorial
  * [Tutorial for I2K 2023](https://slides.imjoy.io/?slides=https://raw.githubusercontent.com/bioimage-io/BioEngine/main/slides/i2k-2023-bioengine-workshop.md)
+
