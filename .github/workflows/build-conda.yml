@@ -1,0 +1,55 @@
+name: Build and Upload Conda Environments
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'environments/*.yml'
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: true
+          python-version: "3.10" # Specify the Python version
+          activate-environment: true
+      - name: Install AWS CLI and Conda-Pack
+        run: |
+          conda install -c conda-forge awscli conda-pack=0.7.1
+      - name: Discover Environments
+        id: discover
+        run: |
+          echo "envs=$(ls environments/*.yml | xargs -n 1 basename)" >> $GITHUB_ENV
+
+      - name: Create, Pack, and Upload Environments
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+          AWS_S3_ENDPOINT: ${{ secrets.AWS_S3_ENDPOINT }}
+          AWS_EC2_METADATA_DISABLED: "true" # https://github.com/aws/aws-cli/issues/5262#issuecomment-705832151
+          PYTHONNOUSERSITE: "True"
+        run: |
+          # copy manifest to s3
+          aws s3 --endpoint-url $AWS_S3_ENDPOINT cp hypha-services-manifest.yaml s3://$AWS_S3_BUCKET_NAME/hypha-services-manifest.yaml
+          # copy the services folder to s3
+          aws s3 --endpoint-url $AWS_S3_ENDPOINT cp --recursive  services s3://$AWS_S3_BUCKET_NAME/services
+          for env_file in $envs; do
+            env_name="${env_file%.*}"
+            echo "Processing $env_name"
+            conda env create -f ./environments/$env_file -n $env_name
+            conda pack -n $env_name -o $env_name.tar.gz
+            aws s3 --endpoint-url $AWS_S3_ENDPOINT cp $env_name.tar.gz s3://$AWS_S3_BUCKET_NAME/environments/$env_name.tar.gz
+            echo "Uploaded $env_name.tar.gz to S3"
+            # remove the environment
+            conda env remove -n $env_name
+            rm $env_name.tar.gz
+          done
+          

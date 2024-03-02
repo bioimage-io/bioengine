@@ -1,0 +1,55 @@
+name: Build and Publish Docker Containers
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'environments/**/Dockerfile'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  ENVIRONMENTS_DIR: environments
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+
+      - name: Extract commit SHA
+        run: echo "SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Find Docker Directories
+        id: find-docker-dirs
+        run: |
+          docker_dirs=$(find $ENVIRONMENTS_DIR -type f -name Dockerfile -exec dirname {} \;)
+          echo "DOCKER_DIRS<<EOF" >> $GITHUB_ENV
+          echo "${docker_dirs}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Build and Push Docker Images
+        run: |
+          while IFS= read -r dir; do
+            if [[ -n "$dir" ]]; then
+              docker_context="./$dir"
+              image_name=$(basename "$dir") # Extracts the name of the directory
+              docker build "$docker_context" -t ${{ env.REGISTRY }}/${{ github.repository_owner }}/$image_name:latest
+              docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/$image_name:latest
+              # tag the image with the short SHA
+              docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/$image_name:latest ${{ env.REGISTRY }}/${{ github.repository_owner }}/$image_name:${{ env.SHORT_SHA }}
+              docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/$image_name:${{ env.SHORT_SHA }}
+            fi
+          done <<< "$DOCKER_DIRS"
+        env:
+          DOCKER_BUILDKIT: 1

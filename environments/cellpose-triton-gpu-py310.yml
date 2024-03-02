@@ -1,0 +1,17 @@
+name: cellpose-triton-gpu-py310
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pytorch=1.12.1
+  - torchvision=0.13.1
+  - torchaudio=0.12.1
+  - cudatoolkit=11.3
+  - libstdcxx-ng=12
+  - matplotlib=3.8.3
+  - bioimageio.core=0.5.11
+  - pip
+  - pip:
+    - git+https://github.com/oeway/cellpose.git@patch-1#egg=cellpose

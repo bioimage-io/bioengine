@@ -1,10 +1,40 @@
-# BioEngine
+# BioEngine: Your AI Engine for Advanced BioImage Analysis in Containers
 
-[Tutorial for I2K 2023](https://slides.imjoy.io/?slides=https://raw.githubusercontent.com/bioimage-io/BioEngine/main/slides/i2k-2023-bioengine-workshop.md)
+<img src='bioengine-logo-black.svg' width='600'>
+<img src='bioengine-logo-white.svg' width='600'>
+<img src='bioengine-logo-gray.svg' width='600'>
+
+BioEngine revolutionizes bioimage analysis by harnessing the power of cutting-edge AI within a flexible, containerized environment. This Python package, built on the robust foundation of [hypha](https://github.com/amun-ai/hypha), is meticulously designed to facilitate the deployment and execution of sophisticated bioimage analysis models and workflows. It offers a seamless, user-friendly interface through HTTP API and RPC, simplifying the integration of AI technologies into bioimage analysis without the need for intricate setup or deep technical expertise.
+
+Understanding the diverse needs of the bioimage community, BioEngine provides a public server available at [https://hypha.bioimage.io](https://hypha.bioimage.io). This server acts as a crucial support hub for the BioImage Model Zoo ([https://bioimage.io](https://bioimage.io)), enabling users to test run models directly or connect through community-developed tools. This initiative not only fosters collaboration but also amplifies the accessibility of advanced AI tools across the field.
+
+Recognizing the paramount importance of data privacy and the need for scalable solutions, BioEngine is designed for versatility. It can be easily deployed across a range of environments—from personal laptops and lab workstations to high-performance computing (HPC) systems and Kubernetes clusters. This adaptability ensures that regardless of your setup, BioEngine can be integrated smoothly, eliminating data transmission concerns and enhancing scalability. To support this wide range of deployment scenarios, we offer specialized toolkits tailored to meet the specific requirements of each platform.
+
+BioEngine stands as a beacon for developers and researchers alike, providing an accessible gateway to the forefront of AI-powered bioimage analysis. By simplifying complex processes and fostering an environment of innovation, BioEngine is not just a tool but a partner in advancing the boundaries of bioimage research.
+
+## Installation
+
+```bash
+pip install bioengine
+```
 
 ## Getting started
 
+To use the BioEngine, you can try it with:
+ - [bioengine-web-client](https://bioimage-io.github.io/bioengine-web-client/)
+ - [BioImage Model Zoo](https://bioimage.io), click any model and scroll down to the section about "Test this model"
+
+## Development
+
+BioEngine is an engine running behind the scenes, developers can interact with it python, javascript code or any other language that supports HTTP.
+
+For example the following 
+
 ```python
+import imageio
+import asyncio
+from imjoy_rpc.hypha import connect_to_server
+
 async def run_model(image):
     server = await connect_to_server(
         {"server_url": "https://hypha.bioimage.io/", "method_timeout": 3000}
@@ -20,6 +50,13 @@ async def run_model(image):
     result = ret["result"]
     mask = result['outputs'][0]
     return mask
+
+# Load your image
+image = imageio.imread("https://samples.fiji.sc/new-lenna.jpg")
+asyncio.run(run_model(image))
 ```
 
+## Tutorial
+
+To get started with BioEngine, please see our [tutorial for I2K 2023](https://slides.imjoy.io/?slides=https://raw.githubusercontent.com/bioimage-io/BioEngine/main/slides/i2k-2023-bioengine-workshop.md).
 

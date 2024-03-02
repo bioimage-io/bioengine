@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[project]
+name = "bioengine"
+version = "0.1.0"
+readme = "README.md"
+description = "Hypha Services for the BioEngine"
+dependencies = [
+  "imjoy-rpc",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["bioengine*"]
+exclude = ["tests*", "scripts*"]
