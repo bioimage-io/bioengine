@@ -3,5 +3,9 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  - python=3.10
   - pyimagej=1.4.1
   - openjdk=8
+  - pip
+  - pip:
+    - imjoy-rpc
