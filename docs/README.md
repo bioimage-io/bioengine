@@ -23,8 +23,8 @@ You can access the BioEngine directly from the [BioImage.IO website](https://bio
 
 
 To use the BioEngine, you can try it with:
- - [bioengine-web-client](https://bioimage-io.github.io/bioengine-web-client/)
- - [BioImage Model Zoo](https://bioimage.io), click any model and scroll down to the section about "Test this model".
+ - [bioengine-web-client](https://bioimage-io.github.io/bioengine-web-client/): A simple web app which allows you to run models from the BioImage Model Zoo.
+ - [BioImage Model Zoo](https://bioimage.io): A repository of models for bioimage analysis, click any model and scroll down to the section about "Test this model".
  
 
 ## Development
