@@ -8,7 +8,9 @@ import numpy as np
 import xarray as xr
 from jpype import JOverride, JImplements
 from hypha.utils import launch_external_services
-
+import argparse
+from imjoy_rpc.hypha import connect_to_server
+    
 
 logger = logging.getLogger(__name__)
 os.environ["JAVA_HOME"] = os.sep.join(sys.executable.split(os.sep)[:-2] + ["jre"])
@@ -91,8 +93,10 @@ async def execute(config, context=None):
 
 
 def run_imagej(config):
-    headless = config.get("headless", False)
-    ij = imagej.init(os.environ["IMAGEJ_DIR"], headless=headless)
+    mode = config.get("mode", "headless")
+    logger.info("Initializing ImageJ...")
+    ij = imagej.init(os.environ.get("IMAGEJ_DIR"), mode=mode)
+    logger.info("Running ImageJ macro...")
     try:
         WindowManager = sj.jimport("ij.WindowManager")
         ImagePlus = sj.jimport("ij.ImagePlus")
@@ -144,7 +148,7 @@ def run_imagej(config):
                     if inputs[k]:
                         inputs[k].setTitle(k)
                         # Display the image
-                        if not headless:
+                        if mode != "headless":
                             inputs[k].show()
                 else:
                     raise NotImplementedError(
@@ -202,7 +206,7 @@ greeting = "Hi " + name + ". You are " + age + " years old, and live in " + city
 
 async def hypha_startup(server):
     file_path = os.path.abspath(__file__)
-    server_url = server.config.public_base_url
+    server_url = server.config.local_base_url
     workspace = server.config.workspace
     token = await server.generate_token()
     service_id = "imagej"
@@ -210,15 +214,16 @@ async def hypha_startup(server):
     # Then launch the code inside the conda env
     await launch_external_services(
         server,
-       f"python {file_path} --server-url={server_url} --service-id={service_id} --workspace={workspace} --token={token}",
+       f"{sys.executable} {file_path} --server-url={server_url} --service-id={service_id} --workspace={workspace} --token={token}",
         name=service_id,
-        check_services=["service_id"],
+        check_services=[service_id],
+        timeout=100,
     )
+    logger.info("ImageJ service is ready.")
 
 
 async def main():
-    import argparse
-    from imjoy_rpc.hypha import connect_to_server
+    
     parser = argparse.ArgumentParser()
     parser.add_argument("--server-url", type=str, help="Server URL")
     parser.add_argument("--workspace", type=str, help="Workspace")

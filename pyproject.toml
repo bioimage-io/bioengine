@@ -7,10 +7,12 @@ version = "0.1.0"
 readme = "README.md"
 description = "BioEngine: Your AI Engine for Advanced BioImage Analysis"
 dependencies = [
+  "hypha>=0.15.45",
   "imjoy-rpc",
   "PyYAML",
   "hypha-launcher",
-  "pyotritonclient"
+  "pyotritonclient",
+  "simpervisor",
 ]
 
 [tool.setuptools]

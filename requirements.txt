@@ -1,5 +1,6 @@
 imjoy-rpc
-hypha
+hypha>=0.15.45
 PyYAML==6.0.1
 hypha-launcher
 pyotritonclient
+simpervisor

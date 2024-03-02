@@ -17,7 +17,7 @@ async def run_app_with_error_logging(app, server, continue_on_error):
         else:
             return e
 
-async def register_bioengine_apps(server, continue_on_error=False):
+async def register_bioengine_apps(server, continue_on_error=True):
     futures = []
     app_names = []
     for app in load_apps():
@@ -26,7 +26,7 @@ async def register_bioengine_apps(server, continue_on_error=False):
         futures.append(run_app_with_error_logging(app, server, continue_on_error))
 
     results = await asyncio.gather(*futures)
-    summary = {name: ("✔️" if result is not None else "❌") for name, result in zip(app_names, results)}
+    summary = {name: ("✅" if result is None else "❌") for name, result in zip(app_names, results)}
     
     for app_name, status in summary.items():
         print(f"{app_name}: {status}")
