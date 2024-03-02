@@ -1,4 +1,4 @@
-<img src='img/bioengine-logo-black.svg' width='600'>
+<img src='https://raw.githubusercontent.com/bioimage-io/bioengine/main/docs/img/bioengine-logo-black.svg' width='600'>
 
 # BioEngine: Your AI Engine for Advanced BioImage Analysis in Containers
 
