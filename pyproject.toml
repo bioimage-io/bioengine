@@ -8,6 +8,9 @@ readme = "README.md"
 description = "Hypha Services for the BioEngine"
 dependencies = [
   "imjoy-rpc",
+  "PyYAML",
+  "hypha-launcher",
+  "pyotritonclient"
 ]
 
 [tool.setuptools]

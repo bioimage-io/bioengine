@@ -1,0 +1,7 @@
+name: pyimagej-py310
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+ - pyimagej=1.4.1
+ - openjdk=8

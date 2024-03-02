@@ -1,1 +1,2 @@
 include environments/*
+include apps/*

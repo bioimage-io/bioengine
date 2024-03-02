@@ -1,2 +1,5 @@
 imjoy-rpc
 hypha
+PyYAML==0.6.1
+hypha-launcher
+pyotritonclient

@@ -2,11 +2,11 @@ import sys
 import argparse
 import asyncio
 import subprocess
-import os
+# import os
 
 def start_server(args):
     # get current file path so we can get the path of apps under the same directory
-    current_dir = os.path.dirname(os.path.abspath(__file__))
+    # current_dir = os.path.dirname(os.path.abspath(__file__))
     command = [
         sys.executable,
         "-m",
@@ -14,14 +14,12 @@ def start_server(args):
         f"--host={args.host}",
         f"--port={args.port}",
         f"--public-base-url={args.public_base_url}",
-        "--startup-functions=bioengine:register_bioengine"
+        "--startup-functions=bioengine:register_bioengine_apps"
     ]
     subprocess.run(command)
 
 def connect_server(args):
     from bioengine import connect_server
-    if args.login_required:
-        os.environ["BIOIMAGEIO_LOGIN_REQUIRED"] = "true"
     server_url = args.server_url
     loop = asyncio.get_event_loop()
     loop.create_task(connect_server(server_url))
@@ -32,10 +30,6 @@ def main():
     parser = argparse.ArgumentParser(description="BioImage.IO Chatbot utility commands.")
     
     subparsers = parser.add_subparsers()
-
-    # Init command
-    parser_init = subparsers.add_parser("init")
-    parser_init.set_defaults(func=init)
 
     # Start server command
     parser_start_server = subparsers.add_parser("start-server")

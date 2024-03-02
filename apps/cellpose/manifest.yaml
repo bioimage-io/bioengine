@@ -1,0 +1,5 @@
+name: Cellpose
+id: cellpose
+description: Cellpose is a generalist algorithm for cell and nucleus segmentation
+runtime: python
+entrypoint: main.py
