@@ -7,6 +7,7 @@ import traceback
 import numpy as np
 import xarray as xr
 from jpype import JOverride, JImplements
+from hypha.utils import launch_external_services
 
 
 logger = logging.getLogger(__name__)
@@ -198,9 +199,42 @@ test_macro = """
 greeting = "Hi " + name + ". You are " + age + " years old, and live in " + city + "."
 """
 
+
 async def hypha_startup(server):
+    file_path = os.path.abspath(__file__)
+    server_url = server.config.public_base_url
+    workspace = server.config.workspace
+    token = await server.generate_token()
+    service_id = "imagej"
+    # TODO: download the conda env and unpack it
+    # Then launch the code inside the conda env
+    await launch_external_services(
+        server,
+       f"python {file_path} --server-url={server_url} --service-id={service_id} --workspace={workspace} --token={token}",
+        name=service_id,
+        check_services=["service_id"],
+    )
+
+
+async def main():
+    import argparse
+    from imjoy_rpc.hypha import connect_to_server
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--server-url", type=str, help="Server URL")
+    parser.add_argument("--workspace", type=str, help="Workspace")
+    parser.add_argument("--token", type=str, help="Token")
+    parser.add_argument("--service-id", type=str, help="ImageJ Service ID")
+    
+    args = parser.parse_args()
+    logger.info("Connecting to the server %s, workspace: %s", args.server_url, args.workspace)
+    # get server_url and token from url
+    server = await connect_to_server({
+        "server_url": args.server_url,
+        "workspace": args.workspace,
+        "token": args.token,
+    })
     try:
-        print("Testing the imagej service...")
+        logger.info("Testing the imagej service...")
         ret = await execute(
             {
                 "script": test_macro,
@@ -218,11 +252,16 @@ async def hypha_startup(server):
     logger.info("Starting the imagej service...")
     svc = await server.register_service(
         {
-            "id": "imagej-service",
-            "type": "imagej-service",
+            "id": args.service_id,
+            "type": "imagej",
             "config": {"require_context": True, "visibility": "public"},
             "execute": execute,
         }
     )
-    
     logger.info(f"ImageJ service is registered as `{svc['id']}`")
+
+if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
+    loop.create_task(main())
+    loop.run_forever()
+    
