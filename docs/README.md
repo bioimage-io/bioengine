@@ -1,6 +1,6 @@
 <img src='https://raw.githubusercontent.com/bioimage-io/bioengine/main/docs/img/bioengine-logo-black.svg' width='600'>
 
-# BioEngine: Your AI Engine for Advanced BioImage Analysis in Containers
+# BioEngine: Your AI Engine for Advanced BioImage Analysis
 
 BioEngine revolutionizes bioimage analysis by harnessing the power of cutting-edge AI within a flexible, containerized environment. This Python package, built on the robust foundation of [hypha](https://github.com/amun-ai/hypha), is meticulously designed to facilitate the deployment and execution of sophisticated bioimage analysis models and workflows. It offers a seamless, user-friendly interface through HTTP API and RPC, simplifying the integration of AI technologies into bioimage analysis without the need for intricate setup or deep technical expertise.
 
