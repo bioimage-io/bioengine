@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'environments/**/Dockerfile'
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io

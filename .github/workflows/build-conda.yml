@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'environments/*.yml'
+  workflow_dispatch:
 
 jobs:
   build-and-upload:
@@ -38,9 +39,9 @@ jobs:
           PYTHONNOUSERSITE: "True"
         run: |
           # copy manifest to s3
-          aws s3 --endpoint-url $AWS_S3_ENDPOINT cp hypha-services-manifest.yaml s3://$AWS_S3_BUCKET_NAME/hypha-services-manifest.yaml
-          # copy the services folder to s3
-          aws s3 --endpoint-url $AWS_S3_ENDPOINT cp --recursive  services s3://$AWS_S3_BUCKET_NAME/services
+          # aws s3 --endpoint-url $AWS_S3_ENDPOINT cp hypha-services-manifest.yaml s3://$AWS_S3_BUCKET_NAME/hypha-services-manifest.yaml
+          # copy the apps folder to s3
+          aws s3 --endpoint-url $AWS_S3_ENDPOINT cp --recursive apps s3://$AWS_S3_BUCKET_NAME/apps
           for env_file in $envs; do
             env_name="${env_file%.*}"
             echo "Processing $env_name"
