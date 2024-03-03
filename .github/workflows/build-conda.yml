@@ -26,7 +26,7 @@ jobs:
       - name: Discover Environments
         id: discover
         run: |
-          echo "envs=$(ls environments/*.yml | xargs -n 1 basename)" >> $GITHUB_ENV
+          echo "envs=$(ls environments/*.yml | xargs -n 1 basename | tr '\n' ' ')" >> $GITHUB_ENV
 
       - name: Create, Pack, and Upload Environments
         env:
