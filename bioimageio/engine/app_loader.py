@@ -2,14 +2,13 @@ from pydantic import BaseModel
 from pathlib import Path
 import logging
 from yaml import safe_load
-from typing import Callable, Optional
-import sys
+from typing import Optional
 import importlib.util
+from enum import Enum
 
 logger = logging.getLogger(__name__)
 
-# define runtime type enum for app runtime
-class AppRuntime(str):
+class AppRuntime(Enum):
     python = "python"
     pyodide = "pyodide"
     triton = "triton"
@@ -20,7 +19,7 @@ class AppInfo(BaseModel):
     description: str
     runtime: AppRuntime
     entrypoint: Optional[str] = None
-    
+        
     async def run(self, server):
         if self.runtime == AppRuntime.python:
             assert self.entrypoint
@@ -35,6 +34,7 @@ class AppInfo(BaseModel):
         else:
             raise NotImplementedError(f"Runtime {self.runtime} is not implemented yet.")
 
+    
 def load_apps():
     current_dir = Path(__file__).parent
     apps_dir = current_dir.parent.parent / "apps"
