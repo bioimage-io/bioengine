@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'environments/*.yml'
+  workflow_dispatch:
 
 jobs:
   build-and-upload:
@@ -26,21 +27,21 @@ jobs:
       - name: Discover Environments
         id: discover
         run: |
-          echo "envs=$(ls environments/*.yml | xargs -n 1 basename)" >> $GITHUB_ENV
+          echo "envs=$(ls environments/*.yml | xargs -n 1 basename | tr '\n' ' ')" >> $GITHUB_ENV
 
       - name: Create, Pack, and Upload Environments
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
-          AWS_S3_ENDPOINT: ${{ secrets.AWS_S3_ENDPOINT }}
+          AWS_S3_BUCKET_NAME: "bioimage.io"
+          AWS_S3_ENDPOINT: "https://uk1s3.embassy.ebi.ac.uk"
           AWS_EC2_METADATA_DISABLED: "true" # https://github.com/aws/aws-cli/issues/5262#issuecomment-705832151
           PYTHONNOUSERSITE: "True"
         run: |
           # copy manifest to s3
-          aws s3 --endpoint-url $AWS_S3_ENDPOINT cp hypha-services-manifest.yaml s3://$AWS_S3_BUCKET_NAME/hypha-services-manifest.yaml
-          # copy the services folder to s3
-          aws s3 --endpoint-url $AWS_S3_ENDPOINT cp --recursive  services s3://$AWS_S3_BUCKET_NAME/services
+          # aws s3 --endpoint-url $AWS_S3_ENDPOINT cp hypha-services-manifest.yaml s3://$AWS_S3_BUCKET_NAME/hypha-services-manifest.yaml
+          # copy the apps folder to s3
+          aws s3 --endpoint-url $AWS_S3_ENDPOINT cp --recursive apps s3://$AWS_S3_BUCKET_NAME/apps
           for env_file in $envs; do
             env_name="${env_file%.*}"
             echo "Processing $env_name"
