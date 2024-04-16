@@ -12,9 +12,7 @@ BioEngine stands as a beacon for developers and researchers alike, providing an 
 
 ## Installation
 
-```bash
-pip install bioimageio.engine
-```
+You can setup the BioEngine worker on your own HPC by following the instructions in the [BioEngine HPC worker](./bioengine-hpc-worker.md) guide.
 
 ## Using the BioEngine
 
@@ -25,40 +23,11 @@ You can access the BioEngine directly from the [BioImage.IO website](https://bio
 To use the BioEngine, you can try it with:
  - [bioengine-web-client](https://bioimage-io.github.io/bioengine-web-client/): A simple web app which allows you to run models from the BioImage Model Zoo.
  - [BioImage Model Zoo](https://bioimage.io): A repository of models for bioimage analysis, click any model and scroll down to the section about "Test this model".
- 
+
 
 ## Development
 
 BioEngine is an engine running behind the scenes, developers can interact with it python, javascript code or any other language that supports HTTP. Please take a look at our [API document](api.md).
-
-
-Here is a simple example of how to use BioEngine in Python:
-
-```python
-import imageio
-import asyncio
-from imjoy_rpc.hypha import connect_to_server
-
-async def run_model(image):
-    server = await connect_to_server(
-        {"server_url": "https://hypha.bioimage.io/", "method_timeout": 3000}
-    )
-    triton = await server.get_service("triton-client")
-
-    # Run inference
-    ret = await triton.execute(
-        inputs=[{"inputs": [image], "model_id": "conscientious-seashell"}],
-        model_name="bioengine-model-runner",
-        serialization="imjoy",
-    )
-    result = ret["result"]
-    mask = result['outputs'][0]
-    return mask
-
-# Load your image
-image = imageio.imread("https://samples.fiji.sc/new-lenna.jpg")
-asyncio.run(run_model(image))
-```
 
 ## Tutorial
 

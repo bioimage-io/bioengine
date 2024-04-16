@@ -39,6 +39,8 @@ async def main():
     server = await connect_to_server(
         {"name": "test client", "server_url": "https://ai.imjoy.io", "method_timeout": 3000}
     )
+
+    # If you are using your own BioEngine worker, please replace `triton-client` to your own BioEngine worker service ID.
     triton = await server.get_service("triton-client")
 
     # Create a fake image
@@ -70,6 +72,7 @@ def main():
     server = connect_to_server(
         {"name": "test client", "server_url": "https://ai.imjoy.io", "method_timeout": 3000}
     )
+    # If you are using your own BioEngine worker, please replace `triton-client` to your own BioEngine worker service ID.
     triton = server.get_service("triton-client")
 
     # Create a fake image
