@@ -7,7 +7,7 @@ version = "0.1.1"
 readme = "README.md"
 description = "BioEngine: Your AI Engine for Advanced BioImage Analysis"
 dependencies = [
-  "hypha>=0.15.46",
+  "hypha[s3]>=0.15.46",
   "imjoy-rpc",
   "PyYAML",
   "hypha-launcher>=0.1.3",
