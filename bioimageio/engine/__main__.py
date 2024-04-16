@@ -9,7 +9,7 @@ import fire
 
 logger = get_logger()
 
-async def start_server(host = "0.0.0.0", port = 9000, public_base_url = ""):
+async def start_server(host = "0.0.0.0", port = 9000, public_base_url = "", launch_all_apps = False):
     # get current file path so we can get the path of apps under the same directory
     # current_dir = os.path.dirname(os.path.abspath(__file__))
     launcher = HyphaLauncher()
@@ -25,7 +25,7 @@ async def start_server(host = "0.0.0.0", port = 9000, public_base_url = ""):
         f"--host={host}",
         f"--port={port}",
         f"--public-base-url={public_base_url}",
-        "--startup-functions=bioimageio.engine:register_bioengine_apps",
+        "--startup-functions=bioimageio.engine:" + ("launch_all_bioengine_apps" if launch_all_apps else "register_bioengine_apps"),
         "--enable-s3",
         f"--endpoint-url=http://localhost:{info['port']}",
         f"--access-key-id={minio_root_user}",
