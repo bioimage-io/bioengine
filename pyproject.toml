@@ -10,7 +10,7 @@ dependencies = [
   "hypha>=0.15.46",
   "imjoy-rpc",
   "PyYAML",
-  "hypha-launcher",
+  "hypha-launcher>=0.1.3",
   "pyotritonclient",
   "simpervisor",
 ]
