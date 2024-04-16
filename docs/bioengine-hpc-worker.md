@@ -37,8 +37,8 @@ This will start a BioEngine worker on your HPC cluster, and it will take a while
 
 ## Step 3: Use the BioEngine Worker
 
-Now you can access the BioEngine worker at `https://bioimage-io.github.io/bioengine-web-client/?server-url=https://ai.imjoy.io&service-id=bioengine-hpc-worker`
-(please replace `https://ai.imjoy.io` and `bioengine-hpc-worker` with your server URL and service ID)
+Now you can access the BioEngine worker at `https://bioimage-io.github.io/bioengine-web-client/?server-url=https://ai.imjoy.io&triton-service-id=bioengine-hpc-worker`
+(please replace `server-url=https://ai.imjoy.io` and `triton-service-id=bioengine-hpc-worker` with your server URL and service ID)
 
 Now you should be able to run models using your own BioEngine worker on your HPC cluster.
 
