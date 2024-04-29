@@ -33,8 +33,5 @@ To assist with your deployment, we offer examples based on our own Bioengine dep
 
 ### Support
 
-Should you encounter any issues or require further assistance with the deployment process, please refer to the documentation in the provided repositories or submit an issue on the relevant GitHub repository page.
+Should you encounter any issues or require further assistance with the deployment process, please refer to the documentation in the provided repositories or [submit an issue](https://github.com/bioimage-io/bioengine/issues).
 
----
-
-This guide aims to provide all necessary information for deploying the Bioengine using Kubernetes and Helm, enhancing your experience with scalable and efficient cloud deployments.
