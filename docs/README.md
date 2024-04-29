@@ -37,13 +37,21 @@ To get started with BioEngine, please see
 
 Please read the documentation at: https://bioimage-io.github.io/bioengine/
 
+## Deployment toolkits
+
+You are welcome to deploy your own BioEngine in your own workstation, HPC or Kubernetes cluster. We provide toolkits for support various settings, currently the following instructions are provided:
+ * [x] HPC: [Deployment instructions](bioengine-hpc-worker.md)
+   - [x]Slurm
+   - other cluster setting please submit an issue
+ * [x] Kubernetes: [Deployment instructions](k8s-toolkit.md)
+
 ## TODO
 
 + Runtime types support via hypha-launcher:
-   * [ ] HPC: Slurm / PBS / LFS ...
+   * [x] HPC: Slurm / PBS / LFS ...
    * [ ] Conda environment
-   * [ ] Docker / Apptainer / podman ...
+   * [x] Docker / Apptainer / podman ...
    * [ ] Web Browser
    * [ ] pytriton(python package)
    * [ ] SSH + X(other runtime types)
-   * [ ] K8S
+   * [x] K8S
