@@ -1,2 +1,2 @@
 include environments/*
-include apps/*
+recursive-include apps
