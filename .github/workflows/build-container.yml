@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'environments/**/Dockerfile'
+      - 'pyproject.toml'
   workflow_dispatch:
 
 permissions:
