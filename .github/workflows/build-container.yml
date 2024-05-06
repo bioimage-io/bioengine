@@ -43,14 +43,16 @@ jobs:
           echo "${docker_dirs}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
+      # This should be docker compose or something
+
       - name: Build and Push Docker Images
         run: |
           while IFS= read -r dir; do
             if [[ -n "$dir" ]]; then
               dockerfile="./$dir/Dockerfile"
               image_name=$(basename "$dir") # Extracts the name of the directory
-              docker build -f "$dockerfile" -t ${{ env.REGISTRY }}/${{ github.repository_owner }}/$image_name:latest
-              docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/$image_name:latest . 
+              docker build -f "$dockerfile" -t ${{ env.REGISTRY }}/${{ github.repository_owner }}/$image_name:latest .
+              docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/$image_name:latest
               # tag the image with the short SHA
               docker tag ${{ env.REGISTRY }}/${{ github.repository_owner }}/$image_name:latest ${{ env.REGISTRY }}/${{ github.repository_owner }}/$image_name:${{ env.SHORT_SHA }}
               docker push ${{ env.REGISTRY }}/${{ github.repository_owner }}/$image_name:${{ env.SHORT_SHA }}
