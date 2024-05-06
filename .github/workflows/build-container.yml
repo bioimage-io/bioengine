@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'environments/**/Dockerfile'
+      - 'Dockerfile'
   workflow_dispatch:
 
 env:
