@@ -8,6 +8,11 @@ on:
       #   description: 'Version of the package to release'
       #   required: true
       #   default: '1.0.0'
+      
+permissions:
+  contents: write
+  packages: write
+
 
 jobs:
   publish:
