@@ -1,2 +1,4 @@
 include environments/*
-recursive-include apps
+recursive-include bioimageio/apps
+global-exclude *.pyc
+global-exclude *__pycache__*

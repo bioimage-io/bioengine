@@ -24,7 +24,7 @@ class AppInfo(BaseModel):
         if self.runtime == AppRuntime.python:
             assert self.entrypoint
                         
-            file_path = Path(__file__).parent.parent.parent / "apps" / self.id / self.entrypoint
+            file_path = Path(__file__).parent.parent.parent / "bioimageio/apps" / self.id / self.entrypoint
             module_name = 'bioimageio.engine.apps.' + self.id.replace('-', '_')
             spec = importlib.util.spec_from_file_location(module_name, file_path)
             module = importlib.util.module_from_spec(spec)
@@ -37,7 +37,7 @@ class AppInfo(BaseModel):
     
 def load_apps():
     current_dir = Path(__file__).parent
-    apps_dir = current_dir.parent.parent / "apps"
+    apps_dir = current_dir.parent.parent / "bioimageio/apps"
     # list folders under apps_dir
     apps = {}
     for app_dir in apps_dir.iterdir():
