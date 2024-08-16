@@ -46,8 +46,9 @@ def load_app(plugin_file):
 @serve.deployment
 class HyphaApp:
     def __init__(self, server_url, workspace, token, services):
+        self.server_url = server_url
         self._services = services
-        self._hypha_server = connect_to_server({"server_url": "https://hypha.aicell.io", "token": token, "workspace": workspace})
+        self._hypha_server = connect_to_server({"server_url": server_url, "token": token, "workspace": workspace})
         svc = {
             "name": "Ray Functions",
             "id": "ray-functions",
@@ -64,12 +65,13 @@ class HyphaApp:
 
         for service_name, service_bind in self._services.items():
             svc[service_name] = create_service_function(service_name, service_bind)
+
         info = self._hypha_server.register_service(svc, {"overwrite":True})
         print("Hypha service info:", info)
         self.info = info
     
     async def __call__(self, request: Request):
-        redirect_url = f"https://hypha.aicell.io/{self.info.config.workspace}/services/{self.info.id.split('/')[1]}/translator?text=hello"
+        redirect_url = f"{self.server_url}/{self.info.config.workspace}/services/{self.info.id.split('/')[1]}/translator?text=hello"
         return HTMLResponse(
             """
             <html>
@@ -103,6 +105,8 @@ for app_file in apps_dir.iterdir():
 server_url = os.environ.get("HYPHA_SERVER_URL")
 workspace = os.environ.get("HYPHA_WORKSPACE")
 token = os.environ.get("HYPHA_TOKEN")
+
+assert server_url, "Server URL is not provided"
 
 app = HyphaApp.bind(server_url, workspace, token, ray_apps)
 
