@@ -1,6 +1,6 @@
 # BioEngine API
 
-Under the hood, BioEngine uses [Hypha](https://ha.amun.ai/) to orchestrate the services provided in the containers. We uses the `imjoy-rpc` client to communicate to the Hypha server for model execution.
+Under the hood, BioEngine uses [Hypha](https://ha.amun.ai/) to orchestrate the services provided in the containers. We uses the `hypha-rpc` client to communicate to the Hypha server for model execution.
 
 We provide a free public server for the BioEngine available at https://ai.imjoy.io.
 
@@ -17,10 +17,10 @@ If you are interested in setting up your own BioEngine server, please check our 
 
 ## Using BioEngine in Python
 
-First install the `imjoy-rpc` library:
+First install the `hypha-rpc` library:
 
 ```bash
-pip install imjoy-rpc
+pip install hypha-rpc
 ```
 
 Use the following code to connect to the server and access the service. The code first connects to the server and then gets the service by its ID. The service can then be used like a normal Python object.
@@ -98,18 +98,18 @@ if __name__ == "__main__":
 
 > [!NOTE]
 > In Python, the recommended way to interact with the server to use asynchronous functions with `asyncio`. However, if you need to use synchronous functions,
-> you can use `from imjoy_rpc.hypha.sync import login, connect_to_server` (available since `imjoy-rpc>=0.5.25.post0`) instead.
-> They have the exact same arguments as the asynchronous versions. For more information, see [Synchronous Wrapper](https://github.com/imjoy-team/imjoy-rpc/blob/master/imjoy-rpc-v2.md#synchronous-wrapper)
+> you can use `from imjoy_rpc.hypha.sync import login, connect_to_server` (available since `hypha-rpc>=0.5.25.post0`) instead.
+> They have the exact same arguments as the asynchronous versions. For more information, see [Synchronous Wrapper](https://github.com/imjoy-team/hypha-rpc/blob/master/hypha-rpc-v2.md#synchronous-wrapper)
 
 > <strong>💡 Tip </strong><br>
 > For QT-based applications, e.g. napari, imswitch, use the synchronous api.
 
 ## Using the BioEingine in JavaScript
 
-Include the following script in your HTML file to load the `imjoy-rpc` client:
+Include the following script in your HTML file to load the `hypha-rpc` client:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/imjoy-rpc@0.5.6/dist/hypha-rpc-websocket.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hypha-rpc@0.5.6/dist/hypha-rpc-websocket.min.js"></script>
 ```
 
 Use the following code in JavaScript to connect to the hypha server and access the bioenigne service via the `triton-client`:
@@ -119,7 +119,7 @@ async function main(){
     const server = await hyphaWebsocketClient.connectToServer({"server_url": "https://ai.imjoy.io"})
     const svc = await server.getService("triton-client")
     // encode the image, similar to np.random.randint(0, 255, (1, 3, 256, 256))
-    // see https://github.com/imjoy-team/imjoy-rpc/blob/master/imjoy-rpc-v2.md#data-type-representation
+    // see https://github.com/imjoy-team/hypha-rpc/blob/master/hypha-rpc-v2.md#data-type-representation
     image = {_rtype: "ndarray", _rvalue: new ArrayBuffer(1*3*256*256), _rshape: [1, 3, 256, 256], _rdtype: "uint8"}
     ret = await triton.execute({
         inputs: [{"inputs": [image], "model_id": "conscientious-seashell"}],

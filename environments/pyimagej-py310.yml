@@ -8,5 +8,5 @@ dependencies:
   - openjdk=8
   - pip
   - pip:
-    - imjoy-rpc
+    - hypha-rpc
 

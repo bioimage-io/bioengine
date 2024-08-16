@@ -1,5 +1,0 @@
-name: ImageJ
-id: imagej
-description: ImageJ is a public domain Java image processing program inspired by NIH Image for the Macintosh.
-runtime: python
-entrypoint: main.py
