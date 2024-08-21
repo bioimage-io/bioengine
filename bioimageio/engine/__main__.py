@@ -40,9 +40,14 @@ def connect_server(server_url, login_required=False):
     loop.create_task(connect_server(server_url))
     loop.run_forever()
 
+def serve_ray_apps():
+    from ray import serve
+    from bioimageio.engine.ray_app_loader import app
+    serve.run(app)
 
 if __name__ == '__main__':
     fire.Fire({
         "start_server": start_server,
-        "connect_server": connect_server
+        "connect_server": connect_server,
+        "serve_ray_apps": serve_ray_apps,
     })

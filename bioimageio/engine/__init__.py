@@ -66,3 +66,5 @@ async def launch_all_bioengine_apps(server):
     logger.info("Starting all bioengine apps...")
     await launch_all_apps(server, apps, continue_on_error=True)
     logger.info("All bioengine apps are started.")
+
+        

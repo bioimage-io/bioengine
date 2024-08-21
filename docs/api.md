@@ -33,7 +33,7 @@ For different Python runtimes (e.g. native Python vs Pyodide), we provide two ve
 ```python
 import asyncio
 import numpy as np
-from imjoy_rpc.hypha import connect_to_server
+from hypha_rpc import connect_to_server
 
 async def main():
     server = await connect_to_server(
@@ -66,7 +66,7 @@ if __name__ == "__main__":
 
 ```python
 import numpy as np
-from imjoy_rpc.hypha.sync import connect_to_server
+from hypha_rpc.sync import connect_to_server
 
 def main():
     server = connect_to_server(
@@ -98,7 +98,7 @@ if __name__ == "__main__":
 
 > [!NOTE]
 > In Python, the recommended way to interact with the server to use asynchronous functions with `asyncio`. However, if you need to use synchronous functions,
-> you can use `from imjoy_rpc.hypha.sync import login, connect_to_server` (available since `hypha-rpc>=0.5.25.post0`) instead.
+> you can use `from hypha_rpc.sync import login, connect_to_server` (available since `hypha-rpc>=0.5.25.post0`) instead.
 > They have the exact same arguments as the asynchronous versions. For more information, see [Synchronous Wrapper](https://github.com/imjoy-team/hypha-rpc/blob/master/hypha-rpc-v2.md#synchronous-wrapper)
 
 > <strong>💡 Tip </strong><br>

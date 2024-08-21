@@ -101,6 +101,7 @@ for app_file in apps_dir.iterdir():
         app_deployment = serve.deployment(name=app_info.name)(app_info.app_class).bind()
         ray_apps[app_info.name] = app_deployment
 
+print("Loaded apps:", ray_apps.keys())
 # Getting config from environment
 server_url = os.environ.get("HYPHA_SERVER_URL")
 workspace = os.environ.get("HYPHA_WORKSPACE")
@@ -112,6 +113,6 @@ app = HyphaApp.bind(server_url, workspace, token, ray_apps)
 
 if __name__ == "__main__":
     serve.start()
-    serve.run(app, name="hypha-apps")
+    serve.run(app, name="bioengine-apps")
     import asyncio
     asyncio.get_event_loop().run_forever()

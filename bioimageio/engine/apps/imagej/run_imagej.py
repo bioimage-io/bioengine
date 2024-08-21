@@ -8,7 +8,7 @@ import numpy as np
 import xarray as xr
 from jpype import JOverride, JImplements
 import argparse
-from imjoy_rpc.hypha import connect_to_server
+from hypha_rpc import connect_to_server
     
 
 logger = logging.getLogger(__name__)
