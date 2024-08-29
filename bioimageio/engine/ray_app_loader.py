@@ -90,13 +90,6 @@ class HyphaRayAppManager:
         self.server_url = server_url
         self._apps = ray_apps
         self._hypha_server = connect_to_server({"server_url": server_url, "token": token, "workspace": workspace})
-        svc = {
-            "name": "Hypha Ray Apps",
-            "id": "hypha-ray-apps",
-            "config": {
-                "visibility": "protected"
-            },
-        }
 
         def create_service_function(name, app_bind, method_name):
             async def service_function(*args, **kwargs):
@@ -108,17 +101,19 @@ class HyphaRayAppManager:
         for app_id, app_info in self._apps.items():
             app_bind = app_info["app_bind"]
             methods = app_info["methods"]
-            app_service = {}
+            app_service = {
+                "id": app_id,
+                "name": app_info["name"],
+                "description": app_info["description"],
+                "config":{
+                    "visibility": "protected"
+                },
+            }
             for method in methods:
                 print(f"Registering method {method} for app {app_id}")
                 app_service[method] = create_service_function(method, app_bind, method)
-            
-            svc[app_id] = app_service
-
-        info = self._hypha_server.register_service(svc, {"overwrite":True})
-        print("Hypha service info:", info)
-        print(f"Service URL: {self.server_url}/{workspace}/services/{info.id.split('/')[1]}")
-        self.info = info
+            info = self._hypha_server.register_service(app_service, {"overwrite":True})
+            print(f"Added service {app_id} with id {info.id}, use it at {self.server_url}/{workspace}/services/{info.id.split('/')[1]}")
     
     async def __call__(self, request: Request):
         # return a json object with the services
