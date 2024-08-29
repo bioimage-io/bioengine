@@ -1,0 +1,14 @@
+name: Cellpose
+id: cellpose
+description: Cellpose is a generalist algorithm for cell and nucleus segmentation
+runtime: ray
+entrypoint: __init__.py
+ray_serve_config:
+  ray_actor_options:
+    runtime_env:
+      pip:
+        - numpy
+        - torch
+  autoscaling_config:
+    min_replicas: 0
+    max_replicas: 2

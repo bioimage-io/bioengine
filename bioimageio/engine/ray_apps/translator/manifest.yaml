@@ -1,0 +1,13 @@
+name: Translator
+id: translator
+description: A simple translator that translates text from English to French
+runtime: ray
+entrypoint: translator.py
+ray_serve_config:
+  ray_actor_options:
+    runtime_env:
+      pip:
+        - transformers
+  autoscaling_config:
+    min_replicas: 0
+    max_replicas: 2

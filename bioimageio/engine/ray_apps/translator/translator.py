@@ -17,4 +17,4 @@ class Translator:
         return translation
 
 
-api.export(Translator, {"name": "translator"})
+api.export(Translator)
