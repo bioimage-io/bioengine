@@ -77,14 +77,6 @@ def load_all_apps(apps_dir: Path) -> dict:
                     assert "ray_actor_options" in ray_serve_config, "ray_actor_options must be provided in ray_serve_config"
                     assert "runtime_env" in ray_serve_config["ray_actor_options"], "runtime_env must be provided in ray_actor_options"
                     runtime_env = ray_serve_config["ray_actor_options"]["runtime_env"]
-                    if "env_vars" not in runtime_env:
-                        runtime_env["env_vars"] = {}
-                    runtime_env["env_vars"].update({
-                        "HYPHA_SERVER_URL": os.environ.get("HYPHA_SERVER_URL", ""),
-                        "HYPHA_WORKSPACE": os.environ.get("HYPHA_WORKSPACE", ""),
-                        "HYPHA_TOKEN": os.environ.get("HYPHA_TOKEN", ""),
-                        "HYPHA_RAY_APPS_DIR": os.environ.get("HYPHA_RAY_APPS_DIR", str(apps_dir))
-                    })
                     if not runtime_env.get("pip"):
                         runtime_env["pip"] = ["hypha-rpc", "https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip"]
                     else:
@@ -145,17 +137,21 @@ class HyphaRayAppManager:
 
 current_dir = Path(os.path.dirname(os.path.realpath(__file__)))
 
-# Getting config from environment
-server_url = os.environ.get("HYPHA_SERVER_URL")
-assert server_url, "Server URL is not provided"
-workspace = os.environ.get("HYPHA_WORKSPACE")
-token = os.environ.get("HYPHA_TOKEN")
-apps_dir = Path(os.environ.get("HYPHA_RAY_APPS_DIR", str(current_dir / "ray_apps")))
-ray_apps = load_all_apps(apps_dir)
-assert apps_dir.exists(), f"Apps directory does not exist: {apps_dir}"
+start_ray_app_manager = os.environ.get("HYPHA_START_RAY_APP_MANAGER", "false")
 
-app = HyphaRayAppManager.bind(server_url, workspace, token, ray_apps)
+if start_ray_app_manager == "true":
+    # Getting config from environment
+    server_url = os.environ.get("HYPHA_SERVER_URL")
+    assert server_url, "Server URL is not provided"
+    workspace = os.environ.get("HYPHA_WORKSPACE")
+    token = os.environ.get("HYPHA_TOKEN")
+    apps_dir = Path(os.environ.get("HYPHA_RAY_APPS_DIR", str(current_dir / "ray_apps")))
+    ray_apps = load_all_apps(apps_dir)
+    assert apps_dir.exists(), f"Apps directory does not exist: {apps_dir}"
 
+    app = HyphaRayAppManager.bind(server_url, workspace, token, ray_apps)
+else:
+    logger.info("Ray app manager not started, set HYPHA_START_RAY_APP_MANAGER to start it")
 
 if __name__ == "__main__":
     serve.start()
