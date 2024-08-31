@@ -13,6 +13,7 @@ from starlette.requests import Request
 from hypha_rpc.utils import ObjectProxy
 from hypha_rpc.sync import connect_to_server
 
+
 logging.basicConfig(stream=sys.stdout)
 logger = logging.getLogger("app_launcher")
 logger.setLevel(logging.INFO)
@@ -48,9 +49,8 @@ def load_app(app_file, manifest):
         raise RuntimeError(f"Invalid script file type ({app_file})")
 
 
-def load_all_apps(work_dir):
+def load_all_apps(apps_dir: Path) -> dict:
     ray_apps = {}
-    apps_dir = work_dir / "ray_apps"
     for sub_dir in apps_dir.iterdir():
         # check the subfolder for apps
         # there should be a file named "manifest.yaml" in the subfolder
@@ -83,6 +83,7 @@ def load_all_apps(work_dir):
 
     assert len(ray_apps) > 0, "No apps loaded"
     return ray_apps
+
 
 @serve.deployment
 class HyphaRayAppManager:
@@ -124,14 +125,15 @@ class HyphaRayAppManager:
     
 
 current_dir = Path(os.path.dirname(os.path.realpath(__file__)))
-ray_apps = load_all_apps(current_dir)
 
 # Getting config from environment
 server_url = os.environ.get("HYPHA_SERVER_URL")
+assert server_url, "Server URL is not provided"
 workspace = os.environ.get("HYPHA_WORKSPACE")
 token = os.environ.get("HYPHA_TOKEN")
-
-assert server_url, "Server URL is not provided"
+apps_dir = Path(os.environ.get("HYPHA_RAY_APPS_DIR", str(current_dir / "ray_apps")))
+ray_apps = load_all_apps(apps_dir)
+assert apps_dir.exists(), f"Apps directory does not exist: {apps_dir}"
 
 app = HyphaRayAppManager.bind(server_url, workspace, token, ray_apps)
 
