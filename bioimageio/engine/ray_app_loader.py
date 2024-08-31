@@ -83,7 +83,8 @@ def load_all_apps(apps_dir: Path) -> dict:
                         if "hypha-rpc" not in runtime_env["pip"]:
                             runtime_env["pip"].append("hypha-rpc")
                             runtime_env["pip"].append("https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip")
-                    
+                    runtime_env["env_vars"] = runtime_env.get("env_vars", {})
+                    runtime_env["env_vars"]["HYPHA_START_RAY_APP_MANAGER"] = "false"
                     app_deployment = serve.deployment(name=app_info.id, **ray_serve_config)(app_info.app_class).bind()
                     manifest["app_bind"] = app_deployment
                     manifest["methods"] = [m for m in dir(app_info.app_class) if not m.startswith("_")]
