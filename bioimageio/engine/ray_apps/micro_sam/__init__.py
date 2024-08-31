@@ -1,18 +1,16 @@
 import io
 from logging import getLogger
 from typing import Union
-
-import numpy as np
-import requests
-import torch
-from cachetools import TTLCache
 from hypha_rpc import api
-from kaibu_utils import mask_to_features
-from segment_anything import SamPredictor, sam_model_registry
-
+import numpy as np
 
 class microSAM:
     def __init__(self, model_timeout: int = 3600, embedding_timeout: int = 600):
+        import torch
+        import numpy as np
+        import requests
+        from cachetools import TTLCache
+
         # Set up logger
         self.logger = getLogger(__name__)
         self.logger.setLevel("INFO")
@@ -28,7 +26,11 @@ class microSAM:
         )  # TODO: what if multiple users download the same model?
         self.embeddings = TTLCache(maxsize=np.inf, ttl=embedding_timeout)
 
-    def _load_model(self, model_name: str) -> torch.nn.Module:
+    def _load_model(self, model_name: str):
+        import torch
+        import requests
+        from segment_anything import sam_model_registry
+    
         if model_name not in self.model_urls:
             raise ValueError(
                 f"Model {model_name} not found. Available models: {list(self.model_urls.keys())}"
@@ -58,7 +60,8 @@ class microSAM:
 
         return sam
 
-    def _to_image(self, input_: np.ndarray) -> np.ndarray:
+    def _to_image(self, input_):
+        
         # we require the input to be uint8
         if input_.dtype != np.dtype("uint8"):
             # first normalize the input to [0, 1]
@@ -79,6 +82,7 @@ class microSAM:
     def compute_embedding(
         self, model_name: str, image: np.ndarray, context: dict = None
     ) -> bool:
+        from segment_anything import SamPredictor
         try:
             user_id = context["user"].get("id")
             if not user_id:
@@ -123,6 +127,8 @@ class microSAM:
         point_labels: Union[list, np.ndarray],
         context: dict = None,
     ) -> list:
+        from kaibu_utils import mask_to_features
+        from segment_anything import SamPredictor
         try:
             user_id = context["user"].get("id")
             if user_id not in self.embeddings:

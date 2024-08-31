@@ -1,5 +1,5 @@
 name: microSAM
-id: micro-sam
+id: micro_sam
 description: Segment Anything for Microscopy implements automatic and interactive annotation for microscopy data.
 runtime: ray
 entrypoint: __init__.py
