@@ -73,7 +73,16 @@ def load_all_apps(apps_dir: Path) -> dict:
 
                 if app_file.is_file() and app_file.suffix == ".py":
                     app_info = load_app(str(app_file), manifest)
-                    ray_serve_config = manifest.get("ray_serve_config", {})
+                    ray_serve_config = manifest.get("ray_serve_config", {"ray_actor_options": {"runtime_env": {}}})
+                    assert "ray_actor_options" in ray_serve_config, "ray_actor_options must be provided in ray_serve_config"
+                    assert "runtime_env" in ray_serve_config["ray_actor_options"], "runtime_env must be provided in ray_actor_options"
+                    runtime_env = ray_serve_config["ray_actor_options"]["runtime_env"]
+                    if not runtime_env.get("pip"):
+                        runtime_env["pip"] = ["hypha-rpc"]
+                    else:
+                        if "hypha-rpc" not in runtime_env["pip"]:
+                            runtime_env["pip"].append("hypha-rpc")
+                    
                     app_deployment = serve.deployment(name=app_info.id, **ray_serve_config)(app_info.app_class).bind()
                     manifest["app_bind"] = app_deployment
                     manifest["methods"] = [m for m in dir(app_info.app_class) if not m.startswith("_")]
