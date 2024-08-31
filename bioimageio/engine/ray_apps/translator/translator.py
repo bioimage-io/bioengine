@@ -1,9 +1,9 @@
 from hypha_rpc import api
-from transformers import pipeline
 
 
 class Translator:
     def __init__(self):
+        from transformers import pipeline
         # Load model
         self.model = pipeline("translation_en_to_fr", model="t5-small")
 
