@@ -139,7 +139,7 @@ current_dir = Path(os.path.dirname(os.path.realpath(__file__)))
 
 # Getting config from environment
 server_url = os.environ.get("HYPHA_SERVER_URL")
-assert server_url, "Server URL is not provided"
+# assert server_url, "Server URL is not provided"
 workspace = os.environ.get("HYPHA_WORKSPACE")
 token = os.environ.get("HYPHA_TOKEN")
 apps_dir = Path(os.environ.get("HYPHA_RAY_APPS_DIR", str(current_dir / "ray_apps")))
