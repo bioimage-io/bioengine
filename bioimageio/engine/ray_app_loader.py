@@ -136,7 +136,7 @@ class HyphaRayAppManager:
 
 current_dir = Path(os.path.dirname(os.path.realpath(__file__)))
 server_url = os.environ.get("HYPHA_SERVER_URL")
-if not server_url:
+if server_url:
     workspace = os.environ.get("HYPHA_WORKSPACE")
     token = os.environ.get("HYPHA_TOKEN")
     apps_dir = Path(os.environ.get("HYPHA_RAY_APPS_DIR", str(current_dir / "ray_apps")))
