@@ -77,6 +77,14 @@ def load_all_apps(apps_dir: Path) -> dict:
                     assert "ray_actor_options" in ray_serve_config, "ray_actor_options must be provided in ray_serve_config"
                     assert "runtime_env" in ray_serve_config["ray_actor_options"], "runtime_env must be provided in ray_actor_options"
                     runtime_env = ray_serve_config["ray_actor_options"]["runtime_env"]
+                    if not runtime_env:
+                        runtime_env["env_vars"] = {}
+                    runtime_env["env_vars"].update({
+                        "HYPHA_SERVER_URL": os.environ.get("HYPHA_SERVER_URL", ""),
+                        "HYPHA_WORKSPACE": os.environ.get("HYPHA_WORKSPACE", ""),
+                        "HYPHA_TOKEN": os.environ.get("HYPHA_TOKEN", ""),
+                        "HYPHA_RAY_APPS_DIR": os.environ.get("HYPHA_RAY_APPS_DIR", str(apps_dir))
+                    })
                     if not runtime_env.get("pip"):
                         runtime_env["pip"] = ["hypha-rpc", "https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip"]
                     else:
@@ -139,7 +147,7 @@ current_dir = Path(os.path.dirname(os.path.realpath(__file__)))
 
 # Getting config from environment
 server_url = os.environ.get("HYPHA_SERVER_URL")
-# assert server_url, "Server URL is not provided"
+assert server_url, "Server URL is not provided"
 workspace = os.environ.get("HYPHA_WORKSPACE")
 token = os.environ.get("HYPHA_TOKEN")
 apps_dir = Path(os.environ.get("HYPHA_RAY_APPS_DIR", str(current_dir / "ray_apps")))

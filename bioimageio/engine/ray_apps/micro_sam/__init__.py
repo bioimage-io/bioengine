@@ -4,7 +4,7 @@ from typing import Union
 from hypha_rpc import api
 import numpy as np
 
-class microSAM:
+class MicroSAM:
     def __init__(self, model_timeout: int = 3600, embedding_timeout: int = 600):
         import torch
         import numpy as np
@@ -166,4 +166,4 @@ class microSAM:
             return []
 
 
-api.export(microSAM)
+api.export(MicroSAM)
