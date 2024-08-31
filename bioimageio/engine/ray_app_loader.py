@@ -94,8 +94,22 @@ def load_all_apps(apps_dir: Path) -> dict:
     assert len(ray_apps) > 0, "No apps loaded"
     return ray_apps
 
+current_dir = Path(os.path.dirname(os.path.realpath(__file__)))
 
-@serve.deployment(ray_actor_options={"runtime_env": {"pip": ["hypha-rpc"]}})
+start_ray_app_manager = os.environ.get("HYPHA_START_RAY_APP_MANAGER", "false")
+server_url = os.environ.get("HYPHA_SERVER_URL")
+assert server_url, "Server URL is not provided"
+workspace = os.environ.get("HYPHA_WORKSPACE")
+token = os.environ.get("HYPHA_TOKEN")
+apps_dir = Path(os.environ.get("HYPHA_RAY_APPS_DIR", str(current_dir / "ray_apps")))
+
+@serve.deployment(ray_actor_options={"runtime_env": {"pip": ["hypha-rpc"], "env_vars": {
+    "HYPHA_START_RAY_APP_MANAGER": "true",
+    "HYPHA_SERVER_URL": os.environ.get("HYPHA_SERVER_URL"),
+    "HYPHA_WORKSPACE": os.environ.get("HYPHA_WORKSPACE"),
+    "HYPHA_TOKEN": os.environ.get("HYPHA_TOKEN"),
+    "HYPHA_RAY_APPS_DIR": os.environ.get("HYPHA_RAY_APPS_DIR", str(current_dir / "ray_apps"))
+}}})
 class HyphaRayAppManager:
     def __init__(self, server_url, workspace, token, ray_apps):
         from hypha_rpc.sync import connect_to_server
@@ -135,17 +149,9 @@ class HyphaRayAppManager:
         return services
     
 
-current_dir = Path(os.path.dirname(os.path.realpath(__file__)))
-
-start_ray_app_manager = os.environ.get("HYPHA_START_RAY_APP_MANAGER", "false")
 
 if start_ray_app_manager == "true":
     # Getting config from environment
-    server_url = os.environ.get("HYPHA_SERVER_URL")
-    assert server_url, "Server URL is not provided"
-    workspace = os.environ.get("HYPHA_WORKSPACE")
-    token = os.environ.get("HYPHA_TOKEN")
-    apps_dir = Path(os.environ.get("HYPHA_RAY_APPS_DIR", str(current_dir / "ray_apps")))
     ray_apps = load_all_apps(apps_dir)
     assert apps_dir.exists(), f"Apps directory does not exist: {apps_dir}"
 
