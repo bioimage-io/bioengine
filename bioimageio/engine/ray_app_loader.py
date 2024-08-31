@@ -11,7 +11,7 @@ import urllib.request
 from starlette.requests import Request
 
 from hypha_rpc.utils import ObjectProxy
-from hypha_rpc.sync import connect_to_server
+
 
 
 logging.basicConfig(stream=sys.stdout)
@@ -94,9 +94,10 @@ def load_all_apps(apps_dir: Path) -> dict:
     return ray_apps
 
 
-@serve.deployment
+@serve.deployment(ray_actor_options={"runtime_env": {"pip": ["hypha-rpc"]}})
 class HyphaRayAppManager:
     def __init__(self, server_url, workspace, token, ray_apps):
+        from hypha_rpc.sync import connect_to_server
         self.server_url = server_url
         self._apps = ray_apps
         self._hypha_server = connect_to_server({"server_url": server_url, "token": token, "workspace": workspace})
