@@ -7,6 +7,8 @@ ray_serve_config:
   ray_actor_options:
     runtime_env:
       pip:
+        - torch==2.3.1
+        - torchvision==0.18.1 
         - transformers
   autoscaling_config:
     min_replicas: 1
