@@ -6,9 +6,6 @@ import numpy as np
 
 class MicroSAM:
     def __init__(self, model_timeout: int = 3600, embedding_timeout: int = 600):
-        import torch
-        import numpy as np
-        import requests
         from cachetools import TTLCache
 
         # Set up logger
