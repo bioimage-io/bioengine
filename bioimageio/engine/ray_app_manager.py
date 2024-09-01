@@ -93,7 +93,7 @@ def load_all_apps() -> dict:
                     if "hypha-rpc" not in runtime_env["pip"]:
                         runtime_env["pip"].append("hypha-rpc")
                 runtime_env["pip"].append(
-                    "https://github.com/bioimage-io/bioengine/archive/main.zip"
+                    "https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip"
                 )
                 runtime_env["env_vars"] = dict(os.environ)
                 app_deployment = serve.deployment(
