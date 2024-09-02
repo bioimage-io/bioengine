@@ -1,4 +1,5 @@
-<!-- docs/_sidebar.md -->
 * [Overview](/)
-* [BioEngine API](api.md)
-* [BioEngine HPC](bioengine-hpc.md)
+* [BioEngine Apps](/bioengine-apps.md)
+* [Tutorial](/tutorial-bioengine-apps.md)
+* [BioEngine API](/api.md)
+* [BioEngine HPC](/bioengine-hpc.md)
