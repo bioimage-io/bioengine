@@ -46,6 +46,7 @@ async def _run_ray_server_apps(address, ready_timeout):
         address = os.environ.get("RAY_ADDRESS")
     with ray.init(address=address) as client_context:
         dashboard_url = f"http://{client_context.dashboard_url}"
+        logger.info(f"Dashboard URL: {dashboard_url}")
     server_url = os.environ.get("HYPHA_SERVER_URL")
     workspace = os.environ.get("HYPHA_WORKSPACE")
     token = os.environ.get("HYPHA_TOKEN")
