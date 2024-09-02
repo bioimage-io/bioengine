@@ -18,7 +18,7 @@ logger.setLevel(logging.INFO)
         "runtime_env": {
             "pip": [
                 "hypha-rpc",
-                "https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip",
+                "https://github.com/bioimage-io/bioengine/archive/refs/heads/main.zip",
             ]
         }
     }

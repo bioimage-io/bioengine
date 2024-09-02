@@ -66,7 +66,7 @@ def create_ray_serve_config(app_info):
         if "hypha-rpc" not in runtime_env["pip"]:
             runtime_env["pip"].append("hypha-rpc")
     runtime_env["pip"].append(
-        "https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip"
+        "https://github.com/bioimage-io/bioengine/archive/refs/heads/main.zip"
     )
     return ray_serve_config
 
