@@ -1,6 +1,5 @@
 """Provide main entrypoint."""
 import re
-from ray import serve
 import logging
 import yaml
 import os
@@ -43,6 +42,7 @@ def load_app(app_file, manifest):
 
         hypha_rpc.api = ObjectProxy(export=export)
         exec(content, globals())
+        assert app_info.app_class, "No app class found in the script"
         logger.info(f"App loaded: {app_info.name}")
         # load manifest file if exists
         return app_info
@@ -75,30 +75,7 @@ def load_all_apps() -> dict:
 
                 assert manifest["runtime"] == "ray", "Only ray apps are supported"
                 app_file = sub_dir / manifest["entrypoint"]
-    
                 app_info = load_app(str(app_file), manifest)
-                ray_serve_config = manifest.get(
-                    "ray_serve_config", {"ray_actor_options": {"runtime_env": {}}}
-                )
-                assert (
-                    "ray_actor_options" in ray_serve_config
-                ), "ray_actor_options must be provided in ray_serve_config"
-                assert (
-                    "runtime_env" in ray_serve_config["ray_actor_options"]
-                ), "runtime_env must be provided in ray_actor_options"
-                runtime_env = ray_serve_config["ray_actor_options"]["runtime_env"]
-                if not runtime_env.get("pip"):
-                    runtime_env["pip"] = ["hypha-rpc"]
-                else:
-                    if "hypha-rpc" not in runtime_env["pip"]:
-                        runtime_env["pip"].append("hypha-rpc")
-                runtime_env["pip"].append(
-                    "https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip"
-                )
-                app_deployment = serve.deployment(
-                    name=app_info.id, **ray_serve_config
-                )(app_info.app_class).bind()
-                manifest["app_bind"] = app_deployment
                 manifest["methods"] = [
                     m for m in dir(app_info.app_class) if not m.startswith("_")
                 ]

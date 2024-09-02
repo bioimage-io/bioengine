@@ -39,7 +39,10 @@ class HyphaRayAppManager:
             return service_function
 
         for app_id, app_info in self._apps.items():
-            app_bind = app_info["app_bind"]
+            ray_serve_config = self.create_ray_serve_config(app_info)
+            app_bind = serve.deployment(
+                name=app_info.id, **ray_serve_config
+            )(app_info.app_class).bind()
             methods = app_info["methods"]
             app_service = {
                 "id": app_id,
@@ -54,6 +57,27 @@ class HyphaRayAppManager:
             print(
                 f"Added service {app_id} with id {info.id}, use it at {self.server_url}/{workspace}/services/{info.id.split('/')[1]}"
             )
+    
+    def create_ray_serve_config(self, manifest):
+        ray_serve_config = manifest.get(
+            "ray_serve_config", {"ray_actor_options": {"runtime_env": {}}}
+        )
+        assert (
+            "ray_actor_options" in ray_serve_config
+        ), "ray_actor_options must be provided in ray_serve_config"
+        assert (
+            "runtime_env" in ray_serve_config["ray_actor_options"]
+        ), "runtime_env must be provided in ray_actor_options"
+        runtime_env = ray_serve_config["ray_actor_options"]["runtime_env"]
+        if not runtime_env.get("pip"):
+            runtime_env["pip"] = ["hypha-rpc"]
+        else:
+            if "hypha-rpc" not in runtime_env["pip"]:
+                runtime_env["pip"].append("hypha-rpc")
+        runtime_env["pip"].append(
+            "https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip"
+        )
+        return ray_serve_config
 
     async def __call__(self, request: Request):
         # return a json object with the services
