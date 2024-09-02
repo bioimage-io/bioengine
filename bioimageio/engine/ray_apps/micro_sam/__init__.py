@@ -80,43 +80,36 @@ class MicroSAM:
         self, model_name: str, image: np.ndarray, context: dict = None
     ) -> bool:
         from segment_anything import SamPredictor
-        try:
-            user_id = context["user"].get("id")
-            if not user_id:
-                self.logger.info("User ID not found in context.")
-                return False
-            sam = self._load_model(model_name)
-            self.logger.info(f"User {user_id} - computing embedding...")
-            predictor = SamPredictor(sam)
-            predictor.set_image(self._to_image(image))
-            # Save computed predictor values
-            self.logger.info(f"User {user_id} - caching embedding...")
-            predictor_dict = {
-                "model_name": model_name,
-                "original_size": predictor.original_size,
-                "input_size": predictor.input_size,
-                "features": predictor.features,  # embedding
-                "is_image_set": predictor.is_image_set,
-            }
-            self.embeddings[user_id] = predictor_dict
-            return True
-        except Exception as e:
-            self.logger.error(f"Error in compute_embedding: {e}")
+
+        user_id = context["user"].get("id")
+        if not user_id:
+            self.logger.info("User ID not found in context.")
             return False
+        sam = self._load_model(model_name)
+        self.logger.info(f"User {user_id} - computing embedding...")
+        predictor = SamPredictor(sam)
+        predictor.set_image(self._to_image(image))
+        # Save computed predictor values
+        self.logger.info(f"User {user_id} - caching embedding...")
+        predictor_dict = {
+            "model_name": model_name,
+            "original_size": predictor.original_size,
+            "input_size": predictor.input_size,
+            "features": predictor.features,  # embedding
+            "is_image_set": predictor.is_image_set,
+        }
+        self.embeddings[user_id] = predictor_dict
+        return True
 
     def reset_embedding(self, context: dict = None) -> bool:
-        try:
-            user_id = context["user"].get("id")
-            if user_id not in self.embeddings:
-                self.logger.info(f"User {user_id} not found in cache.")
-                return False
-            else:
-                self.logger.info(f"User {user_id} - resetting embedding...")
-                del self.embeddings[user_id]
-                return True
-        except Exception as e:
-            self.logger.error(f"Error in reset_embedding: {e}")
+        user_id = context["user"].get("id")
+        if user_id not in self.embeddings:
+            self.logger.info(f"User {user_id} not found in cache.")
             return False
+        else:
+            self.logger.info(f"User {user_id} - resetting embedding...")
+            del self.embeddings[user_id]
+            return True
 
     def segment(
         self,
@@ -126,41 +119,37 @@ class MicroSAM:
     ) -> list:
         from kaibu_utils import mask_to_features
         from segment_anything import SamPredictor
-        try:
-            user_id = context["user"].get("id")
-            if user_id not in self.embeddings:
-                self.logger.info(f"User {user_id} not found in cache.")
-                return []
-            self.logger.info(
-                f"User {user_id} - segmenting with model {self.embeddings[user_id]['model_name']}..."
-            )
-            # Load the model with the pre-computed embedding
-            sam = self._load_model(self.embeddings[user_id]["model_name"])
-            predictor = SamPredictor(sam)
-            for key, value in self.embeddings[user_id].items():
-                if key != "model_name":
-                    setattr(predictor, key, value)
-            # Run the segmentation
-            self.logger.debug(
-                f"User {user_id} - point coordinates: {point_coordinates}, {point_labels}"
-            )
-            if isinstance(point_coordinates, list):
-                point_coordinates = np.array(point_coordinates, dtype=np.float32)
-            if isinstance(point_labels, list):
-                point_labels = np.array(point_labels, dtype=np.float32)
-            mask, scores, logits = predictor.predict(
-                point_coords=point_coordinates[
-                    :, ::-1
-                ],  # SAM has reversed XY conventions
-                point_labels=point_labels,
-                multimask_output=False,
-            )
-            self.logger.debug(f"User {user_id} - predicted mask of shape {mask.shape}")
-            features = mask_to_features(mask[0])
-            return features
-        except Exception as e:
-            self.logger.error(f"Error in segment: {e}")
+        user_id = context["user"].get("id")
+        if user_id not in self.embeddings:
+            self.logger.info(f"User {user_id} not found in cache.")
             return []
+        self.logger.info(
+            f"User {user_id} - segmenting with model {self.embeddings[user_id]['model_name']}..."
+        )
+        # Load the model with the pre-computed embedding
+        sam = self._load_model(self.embeddings[user_id]["model_name"])
+        predictor = SamPredictor(sam)
+        for key, value in self.embeddings[user_id].items():
+            if key != "model_name":
+                setattr(predictor, key, value)
+        # Run the segmentation
+        self.logger.debug(
+            f"User {user_id} - point coordinates: {point_coordinates}, {point_labels}"
+        )
+        if isinstance(point_coordinates, list):
+            point_coordinates = np.array(point_coordinates, dtype=np.float32)
+        if isinstance(point_labels, list):
+            point_labels = np.array(point_labels, dtype=np.float32)
+        mask, scores, logits = predictor.predict(
+            point_coords=point_coordinates[
+                :, ::-1
+            ],  # SAM has reversed XY conventions
+            point_labels=point_labels,
+            multimask_output=False,
+        )
+        self.logger.debug(f"User {user_id} - predicted mask of shape {mask.shape}")
+        features = mask_to_features(mask[0])
+        return features
 
 
 api.export(MicroSAM)
