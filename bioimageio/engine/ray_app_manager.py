@@ -95,7 +95,6 @@ def load_all_apps() -> dict:
                 runtime_env["pip"].append(
                     "https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip"
                 )
-                runtime_env["env_vars"] = dict(os.environ)
                 app_deployment = serve.deployment(
                     name=app_info.id, **ray_serve_config
                 )(app_info.app_class).bind()
