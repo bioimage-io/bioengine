@@ -12,10 +12,14 @@ logging.basicConfig(stream=sys.stdout)
 logger = logging.getLogger("ray_app_launcher")
 logger.setLevel(logging.INFO)
 
+
 @serve.deployment(
     ray_actor_options={
         "runtime_env": {
-            "pip": ["hypha-rpc", "https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip"]
+            "pip": [
+                "hypha-rpc",
+                "https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip",
+            ]
         }
     }
 )
@@ -27,7 +31,7 @@ class HyphaRayAppManager:
         self._apps = ray_apps
         self._ongoing_requests = {}  # Track ongoing requests per app and method
         self._scale_down_flags = {}  # Flags to mark apps for scaling down
-        
+
         assert server_url, "Server URL is required"
         self._hypha_server = connect_to_server(
             {"server_url": server_url, "token": token, "workspace": workspace}
@@ -44,8 +48,10 @@ class HyphaRayAppManager:
 
                 # Track the start of a request
                 self._ongoing_requests[key] += 1
-                logger.info(f"Starting request for {key}, ongoing: {self._ongoing_requests[key]}")
-                
+                logger.info(
+                    f"Starting request for {key}, ongoing: {self._ongoing_requests[key]}"
+                )
+
                 try:
                     method = getattr(app_bind, method_name)
                     results = await method.remote(*args, **kwargs)
@@ -57,10 +63,15 @@ class HyphaRayAppManager:
                 finally:
                     # Track the end of a request
                     self._ongoing_requests[key] -= 1
-                    logger.info(f"Completed request for {key}, ongoing: {self._ongoing_requests[key]}")
+                    logger.info(
+                        f"Completed request for {key}, ongoing: {self._ongoing_requests[key]}"
+                    )
 
                     # If no ongoing requests and flag is set, scale down
-                    if self._ongoing_requests[key] == 0 and self._scale_down_flags[app_id]:
+                    if (
+                        self._ongoing_requests[key] == 0
+                        and self._scale_down_flags[app_id]
+                    ):
                         self.scale_down_if_idle(app_id)
 
             service_function.__name__ = method_name
@@ -83,6 +94,22 @@ class HyphaRayAppManager:
                 f"Added service {app_id} with id {info.id}, use it at {self.server_url}/{workspace}/services/{info.id.split('/')[1]}"
             )
 
+        apps = {}
+        for app_id, app_info in self._apps.items():
+            apps[app_id] = app_info["methods"]
+
+        info = self._hypha_server.register_service(
+            {
+                "id": "ray-apps",
+                "name": app_info["name"],
+                "description": app_info["description"],
+                "config": {"visibility": "public"},
+                "apps": apps,
+            },
+            {"overwrite": True},
+        )
+        logger.info(f"Registered Ray Apps service with id {info.id}")
+
     def mark_apps_for_scaling_down(self, current_app_id):
         # Iterate through all apps to set scale down flags
         for app_id, app_info in self._apps.items():
@@ -91,7 +118,9 @@ class HyphaRayAppManager:
                     key = f"{app_id}:{method_name}"
                     if self._ongoing_requests.get(key, 0) > 0:
                         self._scale_down_flags[app_id] = True
-                        logger.info(f"Marked {app_id} for scaling down after completion")
+                        logger.info(
+                            f"Marked {app_id} for scaling down after completion"
+                        )
 
     def scale_down_if_idle(self, app_id):
         deployment_handle = serve.get_deployment_handle(app_id)
@@ -104,6 +133,7 @@ class HyphaRayAppManager:
         for app_id, app_info in self._apps.items():
             services[app_id] = app_info["methods"]
         return services
+
 
 # Environment variables for connecting to the Hypha server
 server_url = os.environ.get("HYPHA_SERVER_URL")

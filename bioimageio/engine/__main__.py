@@ -51,7 +51,7 @@ async def _run_ray_server_apps(address, ready_timeout):
     workspace = os.environ.get("HYPHA_WORKSPACE")
     token = os.environ.get("HYPHA_TOKEN")
     assert server_url, "HYPHA_SERVER_URL environment variable is not set"
-    health_check_url = "https://hypha.aicell.io/bioengine-apps/services/translator"
+    health_check_url = f"{server_url}/{workspace}/services/ray-apps"
     logger.info(f"Health check URL: {health_check_url}")
     shutdown_command = "serve shutdown -y" + (f" --address={dashboard_url}")
     server = await connect_to_server({"server_url": server_url, "token": token, "workspace": workspace})
