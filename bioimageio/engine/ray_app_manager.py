@@ -76,10 +76,10 @@ def load_all_apps() -> dict:
                 assert manifest["runtime"] == "ray", "Only ray apps are supported"
                 app_file = sub_dir / manifest["entrypoint"]
                 app_info = load_app(str(app_file), manifest)
-                manifest["methods"] = [
+                app_info.methods = [
                     m for m in dir(app_info.app_class) if not m.startswith("_")
                 ]
-                ray_apps[app_info.id] = manifest
+                ray_apps[app_info.id] = app_info
 
     print("Loaded apps:", ray_apps.keys())
 
