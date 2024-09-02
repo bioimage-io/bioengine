@@ -73,7 +73,7 @@ class HyphaRayAppManager:
                 "id": app_id,
                 "name": app_info["name"],
                 "description": app_info["description"],
-                "config": {"visibility": "protected"},
+                "config": {"visibility": "public"},
             }
             for method in methods:
                 logger.info(f"Registering method {method} for app {app_id}")
