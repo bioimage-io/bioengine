@@ -5,9 +5,13 @@ runtime: ray
 entrypoint: translator.py
 ray_serve_config:
   ray_actor_options:
+    num_gpus: 1
     runtime_env:
       pip:
+        - torch==2.3.1
+        - torchvision==0.18.1 
         - transformers
   autoscaling_config:
+    downscale_delay_s: 1
     min_replicas: 0
     max_replicas: 2

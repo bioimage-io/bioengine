@@ -3,7 +3,7 @@ from hypha_rpc import api
 class CellposeModel:
     def __init__(self):
         # Load model
-        pass
+        import torch
 
     def predict(self, image: str) -> str:
         prediction = "prediction of cellpose model on image: " + image

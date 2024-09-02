@@ -1,0 +1,23 @@
+name: microSAM
+id: micro_sam
+description: Segment Anything for Microscopy implements automatic and interactive annotation for microscopy data.
+runtime: ray
+entrypoint: __init__.py
+service_config:
+  require_context: true
+ray_serve_config:
+  ray_actor_options:
+    num_gpus: 1
+    runtime_env:
+      pip:
+        - cachetools==5.5.0
+        - kaibu-utils==0.1.14
+        - numpy==1.26.4
+        - requests==2.31.0
+        - segment_anything==1.0
+        - torch==2.3.1
+        - torchvision==0.18.1        
+  autoscaling_config:
+    downscale_delay_s: 1
+    min_replicas: 0
+    max_replicas: 2
