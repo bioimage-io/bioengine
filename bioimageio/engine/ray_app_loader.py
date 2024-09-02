@@ -12,14 +12,7 @@ logging.basicConfig(stream=sys.stdout)
 logger = logging.getLogger("ray_app_launcher")
 logger.setLevel(logging.INFO)
 
-@serve.deployment(
-    ray_actor_options={
-        "runtime_env": {
-            "pip": ["hypha-rpc", "https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip"],
-            "env_vars": dict(os.environ),
-        }
-    }
-)
+@serve.deployment
 class HyphaRayAppManager:
     def __init__(self, server_url, workspace, token, ray_apps):
         from hypha_rpc.sync import connect_to_server
