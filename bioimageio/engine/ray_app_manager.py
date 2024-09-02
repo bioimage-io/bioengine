@@ -1,4 +1,4 @@
-"""Provide main entrypoint."""
+"""Provide ray app manager."""
 import re
 from ray import serve
 import logging
