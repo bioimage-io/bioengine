@@ -115,5 +115,5 @@ app = HyphaRayAppManager.bind(server_url, workspace, token, ray_apps)
 
 if __name__ == "__main__":
     serve.start()
-    serve.run(app, name="bioengine-apps")
+    serve.run(app)
     asyncio.get_event_loop().run_forever()
