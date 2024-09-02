@@ -5,6 +5,7 @@ runtime: ray
 entrypoint: __init__.py
 ray_serve_config:
   ray_actor_options:
+    num_gpus: 1
     runtime_env:
       pip:
         - cachetools==5.5.0

@@ -5,6 +5,7 @@ runtime: ray
 entrypoint: __init__.py
 ray_serve_config:
   ray_actor_options:
+    num_gpus: 1
     runtime_env:
       pip:
         - torch==2.3.1
