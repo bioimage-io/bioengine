@@ -15,7 +15,7 @@ logger.setLevel(logging.INFO)
 @serve.deployment(
     ray_actor_options={
         "runtime_env": {
-            "pip": ["hypha-rpc"],
+            "pip": ["hypha-rpc", "https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip"]
         }
     }
 )
