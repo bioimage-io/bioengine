@@ -86,6 +86,10 @@ class HyphaRayAppManager:
                 "description": app_info["description"],
                 "config": {"visibility": "public"},
             }
+            if app_info.get("service_config"):
+                svc_config = app_info["service_config"]
+                app_service["config"].update(svc_config)
+
             for method in methods:
                 logger.info(f"Registering method {method} for app {app_id}")
                 app_service[method] = create_service_function(app_id, method, app_bind)

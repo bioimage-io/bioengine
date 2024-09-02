@@ -3,6 +3,8 @@ id: micro_sam
 description: Segment Anything for Microscopy implements automatic and interactive annotation for microscopy data.
 runtime: ray
 entrypoint: __init__.py
+service_config:
+  require_context: true
 ray_serve_config:
   ray_actor_options:
     num_gpus: 1
