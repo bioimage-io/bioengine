@@ -1,5 +1,6 @@
 """Provide main entrypoint."""
 import re
+from ray import serve
 import logging
 import yaml
 import os
@@ -42,25 +43,38 @@ def load_app(app_file, manifest):
 
         hypha_rpc.api = ObjectProxy(export=export)
         exec(content, globals())
-        assert app_info.app_class, "No app class found in the script"
         logger.info(f"App loaded: {app_info.name}")
         # load manifest file if exists
         return app_info
     else:
         raise RuntimeError(f"Invalid script file type ({app_file})")
 
+def create_ray_serve_config(app_info):
+    ray_serve_config = app_info.get(
+        "ray_serve_config", {"ray_actor_options": {"runtime_env": {}}}
+    )
+    assert (
+        "ray_actor_options" in ray_serve_config
+    ), "ray_actor_options must be provided in ray_serve_config"
+    assert (
+        "runtime_env" in ray_serve_config["ray_actor_options"]
+    ), "runtime_env must be provided in ray_actor_options"
+    runtime_env = ray_serve_config["ray_actor_options"]["runtime_env"]
+    if not runtime_env.get("pip"):
+        runtime_env["pip"] = ["hypha-rpc"]
+    else:
+        if "hypha-rpc" not in runtime_env["pip"]:
+            runtime_env["pip"].append("hypha-rpc")
+    runtime_env["pip"].append(
+        "https://github.com/bioimage-io/bioengine/archive/refs/heads/support-ray-apps.zip"
+    )
+    return ray_serve_config
 
 def load_all_apps() -> dict:
     current_dir = Path(os.path.dirname(os.path.realpath(__file__)))
     apps_dir = current_dir / "ray_apps"
     ray_apps = {}
     for sub_dir in apps_dir.iterdir():
-        # check the subfolder for apps
-        # there should be a file named "manifest.yaml" in the subfolder
-        # if yes, load the app
-        # by parsing the manifest.yaml file first,
-        # find the entrypoint key with the file path
-        # set it to app_file
         if sub_dir.is_dir():
             manifest_file = sub_dir / "manifest.yaml"
             if manifest_file.is_file():
@@ -75,7 +89,14 @@ def load_all_apps() -> dict:
 
                 assert manifest["runtime"] == "ray", "Only ray apps are supported"
                 app_file = sub_dir / manifest["entrypoint"]
+    
                 app_info = load_app(str(app_file), manifest)
+                ray_serve_config = create_ray_serve_config(app_info)
+                # runtime_env["env_vars"] = dict(os.environ)
+                app_deployment = serve.deployment(
+                    name=app_info.id, **ray_serve_config
+                )(app_info.app_class).bind()
+                app_info.app_bind = app_deployment
                 app_info.methods = [
                     m for m in dir(app_info.app_class) if not m.startswith("_")
                 ]
