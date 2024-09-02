@@ -75,6 +75,7 @@ async def _run_ray_server_apps(address, ready_timeout):
         if proc:
             if await proc.ready():
                 return f"Ray Apps Manager already started at {server_url}/{workspace}/services/{svc.id.split('/')[1]}"
+        if proc:
             await proc.kill()
         command = [c.strip() for c in serve_command.split() if c.strip()]
         name = "ray-apps-manager"
@@ -93,7 +94,7 @@ async def _run_ray_server_apps(address, ready_timeout):
 
             is_ready = await proc.ready()
 
-            if not is_ready and proc.running:
+            if not is_ready and proc and proc.running:
                 await proc.kill()
                 raise Exception(f"External services ({name}) failed to start")
         except:
