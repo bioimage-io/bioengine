@@ -1,8 +1,8 @@
-### Step-by-Step Tutorial: How to Create BioEngine Apps
+# Step-by-Step Tutorial: How to Create BioEngine Apps
 
 Welcome to the tutorial on creating BioEngine Apps! In this guide, we'll walk you through the process of developing and submitting both UI and Compute Apps for the BioEngine platform. Whether you're building a user interface or a computational backend, this tutorial will help you get started and contribute your app to the BioEngine ecosystem.
 
-#### Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following prerequisites:
 
@@ -18,7 +18,7 @@ Before you begin, ensure you have the following prerequisites:
      pip install ray
      ```
 
-#### Step 1: Set Up Your Development Environment
+## Step 1: Set Up Your Development Environment
 
 1. **Clone the BioEngine Repository:**
    - Start by cloning the BioEngine GitHub repository to your local machine:
@@ -34,7 +34,7 @@ Before you begin, ensure you have the following prerequisites:
      cd my-bioengine-app
      ```
 
-#### Step 2: Develop the Compute App
+## Step 2: Develop the Compute App
 
 Compute Apps are the backend services that perform computations. In this example, we'll create a simple Compute App using Cellpose for cell segmentation.
 
@@ -102,7 +102,7 @@ Compute Apps are the backend services that perform computations. In this example
          max_replicas: 2
      ```
 
-#### Step 3: Develop the UI App
+## Step 3: Develop the UI App
 
 UI Apps are web-based interfaces that interact with the Compute Apps. In this example, we’ll create a simple ImJoy plugin for image visualization and interaction with the Compute App.
 
@@ -155,7 +155,7 @@ UI Apps are web-based interfaces that interact with the Compute Apps. In this ex
      </script>
      ```
 
-#### Step 4: Testing Your BioEngine App
+## Step 4: Testing Your BioEngine App
 
 1. **Run the Compute App:**
    - If you're running the Compute App locally:
@@ -168,7 +168,7 @@ UI Apps are web-based interfaces that interact with the Compute Apps. In this ex
    - Drag and drop the `image_viewer.imjoy.html` file into the ImJoy interface.
    - Run the plugin and check the console for outputs.
 
-#### Step 5: Submitting Your App to BioEngine
+## Step 5: Submitting Your App to BioEngine
 
 1. **Prepare Your Files for Submission:**
    - Ensure that your `__init__.py` and `manifest.yaml` files are complete and tested.
@@ -181,7 +181,7 @@ UI Apps are web-based interfaces that interact with the Compute Apps. In this ex
    - Provide a detailed description of your app, including its functionality, dependencies, and any special instructions.
    - The BioEngine team will review your submission and provide feedback or merge it into the main repository.
 
-#### Conclusion
+## Conclusion
 
 Congratulations! You've created and submitted a BioEngine App. This tutorial has guided you through the development of both UI and Compute Apps, from setup to submission. By contributing to BioEngine, you’re helping to expand a powerful platform for bioimage analysis and AI-driven research.
 

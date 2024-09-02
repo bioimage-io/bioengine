@@ -1,8 +1,8 @@
-### BioEngine Apps Development
+# BioEngine Apps Development
 
 Developing BioEngine Apps involves creating both user interfaces (UI Apps) and computational backends (Compute Apps). These apps work together to provide a seamless experience for bioimage analysis and AI-powered tasks. This guide offers a comprehensive overview of how developers can build and contribute BioEngine Apps, leveraging modern web technologies, the BioEngine platform, and its associated tools.
 
-#### 1. Developing UI Apps with ImJoy
+## 1. Developing UI Apps with ImJoy
 
 **Overview:**
 UI Apps are web-based interfaces that allow users to interact with BioEngine. They are designed to be intuitive, responsive, and capable of handling various tasks such as image uploading, configuring analysis parameters, visualizing results, and managing workflows.
@@ -79,7 +79,7 @@ ImJoy is a flexible platform that supports multiple plugin types, allowing devel
 5. **Deploying and Sharing Your UI App:**
    - Deploy the UI App on ImJoy or other platforms and share it with users by providing a URL or hosting it on platforms like GitHub.
 
-#### 2. Developing Compute Apps
+## 2. Developing Compute Apps
 
 **Overview:**
 Compute Apps are the backend services that perform the heavy computations required by BioEngine applications. These apps can be developed to run either as Hypha services in independent containers or directly on workstations, typically equipped with GPUs.
@@ -170,6 +170,6 @@ If developers want to submit their Compute App to the BioEngine platform, they n
 **Running the Compute App Locally or on a Server:**
 After submission, developers can continue to run their Compute Apps locally or on a server using Ray and Hypha, ensuring they meet performance and scalability requirements before or after integration with the BioEngine platform.
 
-#### Conclusion
+## Conclusion
 
 By following this guide, developers can create and contribute BioEngine Apps that integrate intuitive user interfaces with powerful backend computations. The flexibility of the BioEngine platform, combined with tools like ImJoy and Hypha, provides developers with the means to build, deploy, and scale applications that meet the growing needs of the bioimage analysis community. Whether running on local hardware or as part of a larger cloud infrastructure, BioEngine Apps enable cutting-edge research and collaboration in life sciences.
