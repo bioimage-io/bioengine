@@ -127,9 +127,10 @@ class HyphaRayAppManager:
                         )
 
     def scale_down_if_idle(self, app_id):
-        deployment_handle = serve.get_deployment_handle(app_id)
-        deployment_handle.options(num_replicas=0).deploy()
-        logger.info(f"Scaled down deployment {app_id} due to inactivity")
+        pass
+        # deployment_handle = serve.get_deployment_handle(app_id)
+        # deployment_handle.options(num_replicas=0).deploy()
+        # logger.info(f"Scaled down deployment {app_id} due to inactivity")
 
     async def __call__(self, request: Request):
         # Return a JSON object with the services
