@@ -2,13 +2,13 @@
 
 Under the hood, BioEngine uses [Hypha](https://ha.amun.ai/) to orchestrate the services provided in the containers. We uses the `hypha-rpc` client to communicate to the Hypha server for model execution.
 
-We provide a free public server for the BioEngine available at https://ai.imjoy.io.
+We provide a free public server for the BioEngine available at https://hypha.bioimage.io.
 
 >[!IMPORTANT]
 > This server is meant for testing and evaluation purposes.
 > Please only use it to process small amounts of data to avoid overloading our server!
 
-The following documentation uses `https://ai.imjoy.io` as the server_url - it can be changed to use to different server if desired.
+The following documentation uses `https://hypha.bioimage.io` as the server_url - it can be changed to use to different server if desired.
 
 If you are interested in setting up your own BioEngine server, please check our _preliminary repo_ for run BioEngine locally (tested on a Macbook pro): https://github.com/oeway/bioengine. 
 >[!WARNING]
@@ -37,7 +37,7 @@ from hypha_rpc import connect_to_server
 
 async def main():
     server = await connect_to_server(
-        {"name": "test client", "server_url": "https://ai.imjoy.io", "method_timeout": 3000}
+        {"name": "test client", "server_url": "https://hypha.bioimage.io", "method_timeout": 3000}
     )
 
     # If you are using your own BioEngine worker, please replace `triton-client` to your own BioEngine worker service ID.
@@ -70,7 +70,7 @@ from hypha_rpc.sync import connect_to_server
 
 def main():
     server = connect_to_server(
-        {"name": "test client", "server_url": "https://ai.imjoy.io", "method_timeout": 3000}
+        {"name": "test client", "server_url": "https://hypha.bioimage.io", "method_timeout": 3000}
     )
     # If you are using your own BioEngine worker, please replace `triton-client` to your own BioEngine worker service ID.
     triton = server.get_service("triton-client")
@@ -116,7 +116,7 @@ Use the following code in JavaScript to connect to the hypha server and access t
 
 ```javascript
 async function main(){
-    const server = await hyphaWebsocketClient.connectToServer({"server_url": "https://ai.imjoy.io"})
+    const server = await hyphaWebsocketClient.connectToServer({"server_url": "https://hypha.bioimage.io"})
     const svc = await server.getService("triton-client")
     // encode the image, similar to np.random.randint(0, 255, (1, 3, 256, 256))
     // see https://github.com/imjoy-team/hypha-rpc/blob/master/hypha-rpc-v2.md#data-type-representation

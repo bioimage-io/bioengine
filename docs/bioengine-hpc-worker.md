@@ -30,15 +30,15 @@ export HYPHA_LAUNCHER_STORE_DIR=/path/to/store/data
 export HYPHA_HPC_JOB_TEMPLATE="srun -A Your-Slurm-Account -t 03:00:00 --gpus-per-node A100:1 {cmd}"
 export BIOENGINE_SERVICE_ID="bioengine-hpc-worker"
 
-python -m hypha_launcher launch_bioengine_worker --hypha-server-url https://ai.imjoy.io --triton-service-id $BIOENGINE_SERVICE_ID
+python -m hypha_launcher launch_bioengine_worker --hypha-server-url https://hypha.bioimage.io --triton-service-id $BIOENGINE_SERVICE_ID
 ```
 
 This will start a BioEngine worker on your HPC cluster, and it will take a while to pull the docker image, download the model and launch the worker.
 
 ## Step 3: Use the BioEngine Worker
 
-Now you can access the BioEngine worker at `https://bioimage-io.github.io/bioengine-web-client/?server-url=https://ai.imjoy.io&triton-service-id=bioengine-hpc-worker`
-(please replace `server-url=https://ai.imjoy.io` and `triton-service-id=bioengine-hpc-worker` with your server URL and service ID)
+Now you can access the BioEngine worker at `https://bioimage-io.github.io/bioengine-web-client/?server-url=https://hypha.bioimage.io&triton-service-id=bioengine-hpc-worker`
+(please replace `server-url=https://hypha.bioimage.io` and `triton-service-id=bioengine-hpc-worker` with your server URL and service ID)
 
 Now you should be able to run models using your own BioEngine worker on your HPC cluster.
 

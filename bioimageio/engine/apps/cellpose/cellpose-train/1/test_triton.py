@@ -28,7 +28,7 @@ epochs = 10
 
 async def train():
     seq = SequenceExcutor(
-        server_url="https://ai.imjoy.io/triton",
+        server_url="https://hypha.bioimage.io/triton",
         model_name="cellpose-train",
         decode_json=True,
         sequence_id=model_id,
@@ -81,7 +81,7 @@ async def train():
 async def predict():
     # Start the prediction
     seq = SequenceExcutor(
-        server_url="https://ai.imjoy.io/triton",
+        server_url="https://hypha.bioimage.io/triton",
         model_name="cellpose-predict",
         decode_json=True,
         sequence_id=model_id,
