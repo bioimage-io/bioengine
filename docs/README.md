@@ -53,6 +53,7 @@ BioEngine is an engine running behind the scenes, allowing developers to interac
 To get started with BioEngine, please see:
  - [BioEngine tutorial for "Microscopy data analysis: machine learning and the BioImage Archive virtual course" hosted by EMBL-EBI](https://imjoy-notebook.netlify.app/lab/index.html?load=https://raw.githubusercontent.com/bioimage-io/bioengine/main/notebooks/bioengine-tutorial-embl-2024.ipynb&open=1) (NOTE: In case of issues running the notebook, please try to start this notebook in Chrome, using incognito mode).
  - [BioEngine Tutorial for I2K 2023](https://slides.imjoy.io/?slides=https://raw.githubusercontent.com/bioimage-io/BioEngine/main/slides/i2k-2023-bioengine-workshop.md).
+ - [BioEngine Tutorial for I2K 2024](https://imjoy-notebook.netlify.app/lab/index.html?load=https://raw.githubusercontent.com/bioimage-io/bioengine/main/notebooks/bioengine-workshop-I2K-2024.ipynb&open=1) (NOTE: In case of issues running the notebook, please try to start this notebook in Chrome, using incognito mode).
 
 Please read the full documentation at: [BioEngine Documentation](https://bioimage-io.github.io/bioengine/).
 
